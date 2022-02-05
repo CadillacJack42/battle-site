@@ -1,59 +1,59 @@
 import React from 'react';
 import { useState } from 'react';
-import { fetchUser, signUpUser, createProfile } from '../services/fetch-utils';
-
+import { signUpUser, createProfile, signInUser } from '../services/fetch-utils';
+import SignUpForm from '../SignUpForm';
 
 export default function Auth() {
 
-  const [usernameSignUp, setUsernameSignUp] = useState('');
   const [emailSignUp, setEmailSignUp] = useState('');
+
+  const [usernameSignUp, setUsernameSignUp] = useState('');
+  const [usernameSignIn, setUsernameSignIn] = useState('');
+
   const [passwordSignUp, setPasswordSignUp] = useState('');
+  const [passwordSignIn, setPasswordSignIn] = useState('');
 
 
-  const handleUsernameChange = (e) => {
+  const handleSignUpUsernameChange = (e) => {
     setUsernameSignUp(e.target.value);
-    console.log(usernameSignUp);
-
+  };
+  const handleSignInUsernameChange = (e) => {
+    setUsernameSignIn(e.target.value);
   };
   const handleEmailChange = (e) => {
     setEmailSignUp(e.target.value);
   };
-  const handlePasswordChange = (e) => {
+  const handleSignUpPasswordChange = (e) => {
     setPasswordSignUp(e.target.value);
   };
-  const handleSubmit = async (e) => {
-    console.log(emailSignUp);
+  const handleSignInPasswordChange = (e) => {
+    setPasswordSignIn(e.target.value);
+  };
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     await signUpUser(emailSignUp, passwordSignUp);
     await createProfile(usernameSignUp, emailSignUp);
     location.replace('/profile');
   };
+  const handleSignInSubmit = async (e) => {
+    e.preventDefault();
+    await signInUser();
+    location.replace('/profile');
+  };
   return <div>
-    Sign Up
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username
-        <input value={usernameSignUp} onChange={handleUsernameChange}></input>
-      </label>
-      <label>
-        Password
-        <input 
-          value={passwordSignUp} 
-          onChange={handlePasswordChange}
-          type={'password'}
-        >
-        </input>
-      </label>
-      <label>
-        Email
-        <input 
-          value={emailSignUp}
-          onChange={handleEmailChange}
-          type={'email'}
-        >
-        </input>
-      </label>
-      <button>Submit</button>
-    </form>
+    <SignUpForm 
+      handleSignUpSubmit={handleSignUpSubmit}
+      usernameSignUp={usernameSignUp}
+      handleSignUpUsernameChange={handleSignUpUsernameChange}
+      passwordSignUp={passwordSignUp}
+      handleSignUpPasswordChange={handleSignUpPasswordChange}
+      emailSignUp={emailSignUp}
+      handleEmailChange={handleEmailChange}
+      handleSignInSubmit={handleSignInSubmit}
+      usernameSignIn={usernameSignIn}
+      handleSignInUsernameChange={handleSignInUsernameChange}
+      passwordSignIn={passwordSignIn}
+      handleSignInPasswordChange={handleSignInPasswordChange}
+    />
   </div>;
 }
