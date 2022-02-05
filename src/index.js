@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -9,20 +9,19 @@ import BattleField from './routes/BattleField';
 import Auth from './routes/Auth';
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
+render(
+  <React.StrictMode>
+    <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />}>
+        <Route path='/' element={<App />} >
           <Route path='auth' element={<Auth />} />
           <Route path='profile' element={<Profile />} />
           <Route path='battles' element={<BattleField />} />
         </Route>
       </Routes>
-    </React.StrictMode>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </React.StrictMode>,
   rootElement
-  
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,17 +1,19 @@
 import React from 'react';
-import { createProfile, signUpUser } from '../services/fetch-utils';
+import { useState } from 'react';
+import { fetchUser, signUpUser, createProfile } from '../services/fetch-utils';
 
 
-export default function Auth({
-  usernameSignUp,
-  setUsernameSignUp,
-  emailSignUp,
-  setEmailSignUp,
-  passwordSignUp,
-  setPasswordSignUp,
-}) {
+export default function Auth() {
+
+  const [usernameSignUp, setUsernameSignUp] = useState('');
+  const [emailSignUp, setEmailSignUp] = useState('');
+  const [passwordSignUp, setPasswordSignUp] = useState('');
+
+
   const handleUsernameChange = (e) => {
     setUsernameSignUp(e.target.value);
+    console.log(usernameSignUp);
+
   };
   const handleEmailChange = (e) => {
     setEmailSignUp(e.target.value);
@@ -20,13 +22,11 @@ export default function Auth({
     setPasswordSignUp(e.target.value);
   };
   const handleSubmit = async (e) => {
+    console.log(emailSignUp);
     e.preventDefault();
-    const newUser = {
-      username: usernameSignUp,
-      email: emailSignUp,
-    };
-    await createProfile({ newUser });
     await signUpUser(emailSignUp, passwordSignUp);
+    await createProfile(usernameSignUp, emailSignUp);
+    location.replace('/profile');
   };
   return <div>
     Sign Up
@@ -37,11 +37,21 @@ export default function Auth({
       </label>
       <label>
         Password
-        <input value={passwordSignUp} onChange={handlePasswordChange}></input>
+        <input 
+          value={passwordSignUp} 
+          onChange={handlePasswordChange}
+          type={'password'}
+        >
+        </input>
       </label>
       <label>
         Email
-        <input value={emailSignUp} onChange={handleEmailChange}></input>
+        <input 
+          value={emailSignUp}
+          onChange={handleEmailChange}
+          type={'email'}
+        >
+        </input>
       </label>
       <button>Submit</button>
     </form>

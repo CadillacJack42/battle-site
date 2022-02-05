@@ -4,6 +4,16 @@ export const fetchUser = async () => {
   return client.auth.session();
 };
 
+export const fetchUserProfile = async (id) => {
+
+  const profile = await client
+    .from('profiles')
+    .select()
+    .match({ user_id: id });
+
+  return checkError(profile);
+};
+
 export const checkAuth = async () => {
   const user = await fetchUser();
 
@@ -20,7 +30,6 @@ export const redirectIfLoggedIn = async () => {
 
 export const signUpUser = async (email, password) => {
   const response = await client.auth.signUp({ email, password });
-
   return response.user;
 };
 
@@ -36,13 +45,14 @@ export const logout = async () => {
   return location.replace('../');
 };
 
-export const createProfile = async ({ user }) => {
+export const createProfile = async (username, email) => {
+  console.log(username, email);
   const response = await client
-    .from('profile')
+    .from('profiles')
     .insert([
       {
-        username: user.username,
-        email: user.email,
+        username,
+        email,
       }
     ]);
   return checkError(response);
