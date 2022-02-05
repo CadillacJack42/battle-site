@@ -2,24 +2,27 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { render } from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Profile from './routes/Profile';
-import BattleField from './routes/BattleField';
-import Auth from './routes/Auth';
+
+const Home = lazy(() => import('../src/App'));
+const Auth = lazy(() => import('../src/routes/Auth'));
+const Profile = lazy(() => import('../src/routes/Profile'));
+const BattleField = lazy(() => import('../src/routes/BattleField'));
 
 const rootElement = document.getElementById('root');
 render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />} >
-          <Route path='auth' element={<Auth />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='battles' element={<BattleField />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Suspense fallback={<div>...Loading</div>}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} >
+            <Route path='/auth' element={<Auth />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/battles' element={<BattleField />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   </React.StrictMode>,
   rootElement
 );
