@@ -1,40 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { checkAuth, fetchUser, fetchUserProfile } from '../services/fetch-utils';
+import { checkAuth } from '../services/fetch-utils';
+import UploadMedia from './UploadMedia';
 import './Profile.css';
 
-export default function Profile() {
-
-  const [getProfile, setGetProfile] = useState({});
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const xheck = async () => {
-    checkAuth();
-    setIsLoading(true);
-    const user = fetchUser();
-    const profile = await fetchUserProfile(user.id);
-    setIsLoading(false);
-    setGetProfile(profile[0]);
-    return profile;
-  };
-
-  useEffect(() => {
-    xheck();
-  }, []);
-
+export default function Profile(Profile) {
+  const profile = Profile.Profile;
+  checkAuth();
   return (
     <div className='profile-container'>      
       {
-        isLoading
+        !Profile
           ? <h1>Profile Loading</h1>
           : <div>
-            <h1>{ ` Welcome ${getProfile.username}` }</h1>
-            
-            
+            <h1>{ ` Welcome ${profile.username}` }</h1>
+            <UploadMedia 
+              profile={profile}
+            />
           </div>
       }
-      
     </div>
   );
-
 }

@@ -87,3 +87,29 @@ export const fetchAllUsers = async () => {
   } else return null;
 };
 
+const putInBucket = async (user_id, media) => {
+  const response = await client 
+    .storage
+    .from('videos')
+    .upload(`${user_id}/${media.name}`, media, {
+      cacheControl: '3600',
+      upsert: false
+    });
+  checkError(response);
+};
+
+export const uploadMedia = async (user_id, media) => {
+  console.log(user_id, media);
+  const response = await client
+    .from('profiles')
+    .update({ 
+      avatar_url: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user_id}/${media.name}`
+    })
+    .match({ user_id });
+
+  await putInBucket(user_id, media);
+
+  
+  return checkError(response);
+};
+
