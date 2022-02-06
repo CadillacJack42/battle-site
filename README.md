@@ -25,4 +25,4 @@ Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 
-`https://iyikuobannfwgdzjsufy.supabase.in/storage/v1/object/public/video-submissions/${user.id}/${video.name}`
+`https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user.id}/${video.name}`

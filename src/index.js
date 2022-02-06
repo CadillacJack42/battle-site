@@ -24,14 +24,12 @@ const renderApp = async () => {
         <Suspense fallback={<div>...Loading</div>}>
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<Landing 
-                userProfile={profileData}
-              />}>
-                <Route exact path='/home' element={<Home 
+              <Route element={<Landing userProfile={profileData}/>}>
+                <Route exact path='/' element={<Home 
                   allUsers={allUsers}
                 />} />
                 <Route exact path='/auth' element={<Auth />} />
-                <Route exact path='/profile' element={<Profile />} />
+                <Route exact path='/profile' element={<Profile Profile={profileData}/>} />
                 <Route exact path='/battles' element={<BattleField />} />
               </Route>
             </Routes>
