@@ -23,7 +23,7 @@ export default function Nav(username) {
       <Link className='nav-link' to='/'>Home</Link> | {' '}
       <Link className='nav-link' to='/profile'>Profile</Link> | {' '}
       <Link className='nav-link' to='/battles'>Battle Field</Link> | {' '}
-      <Link className='nav-link' to='/public-profile'>Public Profile</Link> | {' '}
+      <Link className='nav-link' to='/public-profile/:id'>Public Profile</Link> | {' '}
       {
         username.Data ? 
           <button className='logout nav-link' onClick={logout}>Logout</button> :

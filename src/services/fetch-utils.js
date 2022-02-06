@@ -14,6 +14,15 @@ export const fetchUserProfile = async (id) => {
 
   return checkError(profile);
 };
+export const fetchProfileById = async (id) => {
+
+  const profile = await client
+    .from('profiles')
+    .select()
+    .match({ id });
+
+  return checkError(profile);
+};
 
 export const checkAuth = () => {
   const user = fetchUser();
@@ -80,8 +89,6 @@ export const fetchAllUsers = async () => {
   const allUsers = await client
     .from('profiles')
     .select();
-  
-  console.log(allUsers.data);
   if (allUsers) {
     return allUsers.data;
   } else return null;

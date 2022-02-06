@@ -1,8 +1,9 @@
+import { render } from 'react-dom';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { render } from 'react-dom';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
+
 
 import { getUserState, fetchAllUsers } from './services/fetch-utils';
 
@@ -13,12 +14,13 @@ const Profile = lazy(() => import('../src/routes/Profile'));
 const BattleField = lazy(() => import('../src/routes/BattleField'));
 const PublicProfile = lazy(() => import('../src/routes/PublicProfile'));
 
+
 const rootElement = document.getElementById('root');
 
 const renderApp = async () => {
+
   const profileData = await getUserState();
   const allUsers = await fetchAllUsers();
-  console.log(allUsers);
   return (
     render(
       <React.StrictMode>
@@ -30,7 +32,7 @@ const renderApp = async () => {
                 <Route exact path='/auth' element={<Auth />} />
                 <Route exact path='/profile' element={<Profile Profile={profileData}/>} />
                 <Route exact path='/battles' element={<BattleField />} />
-                <Route exact path='/public-profile' element={<PublicProfile user={profileData}/>} />
+                <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
               </Route>
             </Routes>
           </BrowserRouter>

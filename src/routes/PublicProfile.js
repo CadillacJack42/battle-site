@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchProfileById } from '../services/fetch-utils';
 
-export default function PublicProfile(user) {
-  const profile = user.user;
+
+
+export default function PublicProfile() {
+  const [profile, setProfile] = useState(null);
+  const handle = useParams();
+  
+  useEffect(() => {
+    const getAndSet = async () => {
+      const userProfile = await fetchProfileById(handle.id);
+      setProfile(userProfile);
+    };
+    getAndSet();
+    
+  }, []);
+  console.log(profile);
+
   return <div>
-    <img src={profile.avatar_url} alt='Profile Pic'></img>
-    <h2>{profile.username}</h2>
+    <h1>testing</h1>
     {
-      profile.video_uploads.map((video, i) => {
-        return (
-          <video width="400" height="300" controls key={profile.username + i} >
-            <source src={video} type="video/mp4"/>
-          </video>
-        );
-      })
-    }
+      profile ? 
+        <div>
+          <img src={profile[0].avatar_url} alt='Profile Pic'></img>
+          <h2>{profile[0].username}</h2>
+          {
+            profile[0].video_uploads.map((video, i) => {
+              return (
+                <video width="400" height="300" controls key={profile[0].username + i} >
+                  <source src={video} type="video/mp4"/>
+                </video>
+              );
+            })
+          }
+        </div> : 
+        <h1>LOADING....</h1>}
+    
   </div>;
 }

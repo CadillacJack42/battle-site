@@ -6,7 +6,7 @@ export default function Home(
   return <div>
     {allUsers.allUsers.map((user, i) => {
       return (
-        <div key={user + i}>
+        <div onClick={() => location.replace(`./public-profile/${user.id}`)} key={user + i}>
           <h2 >{user.username}</h2>
           {user.video_uploads.map((video, i) => {
             return (
