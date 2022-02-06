@@ -19,7 +19,7 @@ export const checkAuth = () => {
   const user = fetchUser();
 
   if (!user) {
-    location.replace('../');
+    location.replace('./auth');
   }
 };
 
@@ -41,7 +41,7 @@ export const signInUser = async (email, password) => {
 
 export const logout = async () => {
   await client.auth.signOut();
-  return location.replace('../');
+  return location.replace('./auth');
 };
 
 export const createProfile = async (username, email) => {
@@ -68,4 +68,22 @@ export const uploadVideo = async ({ newVideo }) => {
     ]);
 };
 
+export const getUserState = async () => {
+  const user = fetchUser();
+  if (user) {
+    const profile = await fetchUserProfile(user.id);
+    return profile[0];
+  } else return null;
+};
+
+export const fetchAllUsers = async () => {
+  const allUsers = await client
+    .from('profiles')
+    .select();
+  
+  console.log(allUsers.data);
+  if (allUsers) {
+    return allUsers.data;
+  } else return null;
+};
 

@@ -1,0 +1,34 @@
+.nav-pane {
+    text-align: center;
+}
+
+.nav-link {
+    color: black;
+    margin: 0 5px;
+}
+
+.logout {
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    text-decoration: underline;
+    margin: 0;
+}
+
+.user-nav {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.avatar {
+    border: 1px solid black;
+    border-radius: 50px;
+    padding: 10px;
+    grid-column: 1;
+    width: 60px;
+}
+
+.user-nav-greetings {
+    grid-column: 2;
+}
