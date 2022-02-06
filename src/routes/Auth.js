@@ -5,10 +5,10 @@ import SignUpForm from '../SignUpForm';
 
 export default function Auth() {
 
-  const [emailSignUp, setEmailSignUp] = useState('');
-
   const [usernameSignUp, setUsernameSignUp] = useState('');
-  const [usernameSignIn, setUsernameSignIn] = useState('');
+  
+  const [emailSignUp, setEmailSignUp] = useState('');
+  const [emailSignIN, setEmailSignIN] = useState('');
 
   const [passwordSignUp, setPasswordSignUp] = useState('');
   const [passwordSignIn, setPasswordSignIn] = useState('');
@@ -17,11 +17,11 @@ export default function Auth() {
   const handleSignUpUsernameChange = (e) => {
     setUsernameSignUp(e.target.value);
   };
-  const handleSignInUsernameChange = (e) => {
-    setUsernameSignIn(e.target.value);
-  };
-  const handleEmailChange = (e) => {
+  const handleSignUPEmailChange = (e) => {
     setEmailSignUp(e.target.value);
+  };
+  const handleSignINEmailChange = (e) => {
+    setEmailSignIN(e.target.value);
   };
   const handleSignUpPasswordChange = (e) => {
     setPasswordSignUp(e.target.value);
@@ -37,7 +37,7 @@ export default function Auth() {
   };
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
-    await signInUser();
+    await signInUser(emailSignIN, passwordSignIn);
     location.replace('/profile');
   };
   return <div>
@@ -48,10 +48,10 @@ export default function Auth() {
       passwordSignUp={passwordSignUp}
       handleSignUpPasswordChange={handleSignUpPasswordChange}
       emailSignUp={emailSignUp}
-      handleEmailChange={handleEmailChange}
+      handleSignUPEmailChange={handleSignUPEmailChange}
       handleSignInSubmit={handleSignInSubmit}
-      usernameSignIn={usernameSignIn}
-      handleSignInUsernameChange={handleSignInUsernameChange}
+      emailSignIn={emailSignIN}
+      handleSignINEmailChange={handleSignINEmailChange}
       passwordSignIn={passwordSignIn}
       handleSignInPasswordChange={handleSignInPasswordChange}
     />

@@ -1,23 +1,33 @@
-import React from 'react';
-import { checkError } from '../services/client';
-import { fetchUser, fetchUserProfile, logout } from '../services/fetch-utils';
+import React, { useEffect, useState } from 'react';
+import { fetchUser, fetchUserProfile } from '../services/fetch-utils';
 
 export default function Profile() {
 
-  const selectProfile = async () => {
-    const { user } = await fetchUser();
-    console.log(user);
-    const profile = await fetchUserProfile(user.id);
-    console.log(profile);
-    return checkError(profile);
-  };
-  
-  const userProfile = selectProfile();
-  console.log(userProfile);
+  const [getProfile, setGetProfile] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  return <div>
-    <img src={''} alt={'this should be a profile pic'} style={{ width: '200px', height: '200px' }}></img>
-    <h2>{userProfile.username}</h2>
-    <button onClick={logout}>Logout</button>
-  </div>;
+  const xheck = async () => {
+    setIsLoading(true);
+    const user = fetchUser();
+    const profile = await fetchUserProfile(user.id);
+    setIsLoading(false);
+    setGetProfile(profile[0]);
+    return profile;
+  };
+
+  useEffect(() => {
+    xheck();
+  }, []);
+
+  return (
+    <div>
+      <h1>Profile Page</h1>
+      {
+        isLoading
+          ? <h1>Profile Loading</h1>
+          : <div>{ getProfile.username }</div>
+      }
+    </div>
+  );
+
 }
