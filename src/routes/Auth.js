@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { signUpUser, createProfile, signInUser } from '../services/fetch-utils';
 import SignUpForm from '../SignUpForm';
+import './Auth.css';
 
 export default function Auth() {
 
@@ -37,10 +38,12 @@ export default function Auth() {
   };
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
-    await signInUser(emailSignIN, passwordSignIn);
-    location.replace('/profile');
+    const user = await signInUser(emailSignIN, passwordSignIn);
+    if (user) {
+      location.replace('/profile');
+    }
   };
-  return <div>
+  return <div className='auth-container'>
     <SignUpForm 
       handleSignUpSubmit={handleSignUpSubmit}
       usernameSignUp={usernameSignUp}

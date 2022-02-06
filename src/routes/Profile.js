@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUser, fetchUserProfile } from '../services/fetch-utils';
+import { checkAuth, fetchUser, fetchUserProfile } from '../services/fetch-utils';
+import './Profile.css';
 
 export default function Profile() {
 
   const [getProfile, setGetProfile] = useState({});
+
   const [isLoading, setIsLoading] = useState(false);
 
   const xheck = async () => {
+    checkAuth();
     setIsLoading(true);
     const user = fetchUser();
     const profile = await fetchUserProfile(user.id);
@@ -20,13 +23,17 @@ export default function Profile() {
   }, []);
 
   return (
-    <div>
-      <h1>Profile Page</h1>
+    <div className='profile-container'>      
       {
         isLoading
           ? <h1>Profile Loading</h1>
-          : <div>{ getProfile.username }</div>
+          : <div>
+            <h1>{ ` Welcome ${getProfile.username}` }</h1>
+            
+            
+          </div>
       }
+      
     </div>
   );
 
