@@ -8,7 +8,7 @@ export default function Nav(username) {
     {
       username.Data ?
         <div className='user-nav'>
-          <img className='avatar' src={`${username.Data.avatar_url}`} alt='PROFILE PIC'></img>
+          <img className='avatar' src={username.Data.avatar_url} alt='PROFILE PIC'></img>
           <h1 className='user-nav-greetings'>{`Welcome ${username.Data.username}`}</h1>
         </div> :
         null
@@ -23,6 +23,7 @@ export default function Nav(username) {
       <Link className='nav-link' to='/'>Home</Link> | {' '}
       <Link className='nav-link' to='/profile'>Profile</Link> | {' '}
       <Link className='nav-link' to='/battles'>Battle Field</Link> | {' '}
+      <Link className='nav-link' to='/public-profile'>Public Profile</Link> | {' '}
       {
         username.Data ? 
           <button className='logout nav-link' onClick={logout}>Logout</button> :

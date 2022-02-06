@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import { uploadMedia } from '../services/fetch-utils';
+import { useState } from 'react';
+import { uploadNewVideo } from '../services/fetch-utils';
 
-export default function UploadMedia(profile) {
+export default function UploadVideos(profile) {
   const userProfile = profile.profile;
   console.log(userProfile);
-
+  
   const [media, setMedia] = useState('');
-
+  
   const handleMediaChange = (e) => {
     setMedia(e.target.files[0]);
     console.log(e.target.files[0]);
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadMedia(userProfile.user_id, media);
+    uploadNewVideo(userProfile.user_id, media);
+    setMedia('success');
   };
   return <div>
+    <h3>Upload New Videos</h3>
     <form onSubmit={handleSubmit}>
       <label>
         <input 
@@ -26,5 +28,7 @@ export default function UploadMedia(profile) {
       </label>
       <button>Submit</button>
     </form>
-  </div>;
-}
+    <br></br>
+    <hr></hr>
+    <br></br>
+  </div>;}
