@@ -7,10 +7,11 @@ export default function SignUpForm({
   passwordSignUp,
   handleSignUpPasswordChange,
   emailSignUp,
-  handleEmailChange,
+  handleSignUPEmailChange,
+  
   handleSignInSubmit,
-  usernameSignIn,
-  handleSignInUsernameChange,
+  emailSignIn,
+  handleSignINEmailChange,
   passwordSignIn,
   handleSignInPasswordChange,
 }) {
@@ -19,7 +20,9 @@ export default function SignUpForm({
     <form onSubmit={handleSignUpSubmit}>
       <label>
         Username
-        <input value={usernameSignUp} onChange={handleSignUpUsernameChange}></input>
+        <input
+          value={usernameSignUp} 
+          onChange={handleSignUpUsernameChange}></input>
       </label>
       <label>
         Password
@@ -34,7 +37,7 @@ export default function SignUpForm({
         Email
         <input 
           value={emailSignUp}
-          onChange={handleEmailChange}
+          onChange={handleSignUPEmailChange}
           type={'email'}
         >
         </input>
@@ -47,10 +50,10 @@ export default function SignUpForm({
     Sign In
     <form onSubmit={handleSignInSubmit}>
       <label>
-        Username
+        Email
         <input
-          value={usernameSignIn}
-          onChange={handleSignInUsernameChange}
+          value={emailSignIn}
+          onChange={handleSignINEmailChange}
         >
         </input>
       </label>

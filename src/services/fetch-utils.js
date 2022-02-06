@@ -1,7 +1,8 @@
 import { client, checkError } from './client';
 
-export const fetchUser = async () => {
-  return client.auth.session();
+export const fetchUser = () => {
+  const user = client.auth.user();
+  return user;
 };
 
 export const fetchUserProfile = async (id) => {
@@ -14,16 +15,16 @@ export const fetchUserProfile = async (id) => {
   return checkError(profile);
 };
 
-export const checkAuth = async () => {
-  const user = await fetchUser();
+export const checkAuth = () => {
+  const user = fetchUser();
 
   if (!user) {
     location.replace('../');
   }
 };
 
-export const redirectIfLoggedIn = async () => {
-  if (await fetchUser()) {
+export const redirectIfLoggedIn = () => {
+  if (fetchUser()) {
     location.replace('./profile');
   }
 };
@@ -35,18 +36,15 @@ export const signUpUser = async (email, password) => {
 
 export const signInUser = async (email, password) => {
   const response = await client.auth.signIn({ email, password });
-
   return response.user;
 };
 
 export const logout = async () => {
   await client.auth.signOut();
-
   return location.replace('../');
 };
 
 export const createProfile = async (username, email) => {
-  console.log(username, email);
   const response = await client
     .from('profiles')
     .insert([
@@ -59,7 +57,7 @@ export const createProfile = async (username, email) => {
 };
 
 export const uploadVideo = async ({ newVideo }) => {
-  const response = await client
+  await client
     .from('videos')
     .insert([
       {
