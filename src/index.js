@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 
 
-import { getUserState, fetchAllUsers } from './services/fetch-utils';
+import { getUserState, fetchAllUsers, fetchAllBattles } from './services/fetch-utils';
 
 const Landing = lazy(() => import('../src/App'));
 const Home = lazy(() => import('../src/routes/Home'));
@@ -21,6 +21,8 @@ const renderApp = async () => {
 
   const profileData = await getUserState();
   const allUsers = await fetchAllUsers();
+  const battles = await fetchAllBattles();
+
   return (
     render(
       <React.StrictMode>
@@ -31,7 +33,7 @@ const renderApp = async () => {
                 <Route exact path='/' element={<Home allUsers={allUsers} />} />
                 <Route exact path='/auth' element={<Auth />} />
                 <Route exact path='/profile' element={<Profile Profile={profileData}/>} />
-                <Route exact path='/battles' element={<BattleField />} />
+                <Route exact path='/battles' element={<BattleField battles={battles} />} />
                 <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
               </Route>
             </Routes>

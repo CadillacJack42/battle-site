@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProfileById } from '../services/fetch-utils';
+import CallOutForm from './CallOutForm';
 
 
 
 export default function PublicProfile() {
+
   const [profile, setProfile] = useState(null);
   const handle = useParams();
   
@@ -15,16 +17,17 @@ export default function PublicProfile() {
     };
     getAndSet();
     
-  }, []);
-  console.log(profile);
+  }, [handle.id]);
 
   return <div>
-    <h1>testing</h1>
     {
       profile ? 
         <div>
           <img src={profile[0].avatar_url} alt='Profile Pic'></img>
           <h2>{profile[0].username}</h2>
+          <CallOutForm 
+            opponent={profile[0].user_id}
+          />
           {
             profile[0].video_uploads.map((video, i) => {
               return (
@@ -35,7 +38,7 @@ export default function PublicProfile() {
             })
           }
         </div> : 
-        <h1>LOADING....</h1>}
-    
+        <h1>LOADING....</h1>
+    }
   </div>;
 }

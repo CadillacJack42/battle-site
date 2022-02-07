@@ -10,7 +10,8 @@ export const fetchUserProfile = async (id) => {
   const profile = await client
     .from('profiles')
     .select()
-    .match({ user_id: id });
+    .match({ user_id: id })
+    .single();
 
   return checkError(profile);
 };
@@ -106,7 +107,6 @@ const avatarBucket = async (user_id, media) => {
 };
 
 export const uploadProfileAvatar = async (user_id, media) => {
-  console.log(user_id, media);
   const response = await client
     .from('profiles')
     .update({ 
@@ -131,19 +131,9 @@ const videoBucket = async (user_id, media) => {
   checkError(response);
 };
 
-// export const fetchUserVideos = async (user_id) => {
-//   const userVideos = await client
-//     .from('profiles')
-//     .select()
-//     .match(user_id);
-
-//   return checkError(userVideos);
-// };
-
 export const uploadNewVideo = async (user_id, media) => {
   const user = await fetchUserProfile(user_id);
   const videos = user[0].video_uploads;
-  console.log(user[0].video_uploads);
 
   const response = await client
     .from('profiles')
@@ -151,7 +141,6 @@ export const uploadNewVideo = async (user_id, media) => {
       video_uploads: [...videos, `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user_id}/${media.name}`]
     })
     .match({ user_id });
-  console.log(response);
 
   await videoBucket(user_id, media);
 
@@ -159,4 +148,29 @@ export const uploadNewVideo = async (user_id, media) => {
   return checkError(response);
 };
 
-['{"id":12,"created_at":"2022-02-06T07:05:28.652636+00:00","user_id":"24ad5d2a-934e-413a-b2a2-4bbf732cb92b","username":"Creator","avatar_url":"https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/avatars/24ad5d2a-934e-413a-b2a2-4bbf732cb92b/IMG_1869Fedez1024.png","email":"fivestar@general.com","video_uploads":null}', 'https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/24ad5d2a-934e-413a-b2a2-4bbf732cb92b/test-video.mov'];
+export const uploadCallOut = async (opponent_id, media) => {
+
+  const user = fetchUser();
+
+  const response = await client
+    .from('battles')
+    .insert([{ 
+      challenger: user.id,
+      opponent: opponent_id,
+      call_out: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user.id}/${media.name}`,
+    }])
+    .match({ user_id: user.id });
+    
+  await videoBucket(user.id, media);
+
+  return checkError(response);
+};
+
+export const fetchAllBattles = async () => {
+  const response = await client
+    .from('battles')
+    .select();
+  if (response) {
+    return response.data;
+  } else return null;
+};

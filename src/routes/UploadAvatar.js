@@ -3,13 +3,11 @@ import { uploadProfileAvatar } from '../services/fetch-utils';
 
 export default function UploadAvatar(profile) {
   const userProfile = profile.profile;
-  console.log(userProfile);
 
   const [media, setMedia] = useState('');
 
   const handleMediaChange = (e) => {
     setMedia(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
