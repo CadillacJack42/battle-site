@@ -32,9 +32,12 @@ export default function Auth() {
   };
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    await signUpUser(emailSignUp, passwordSignUp);
+    const user = await signUpUser(emailSignUp, passwordSignUp);
     await createProfile(usernameSignUp, emailSignUp);
-    location.replace('/profile');
+    if (user) {
+      location.replace('/profile');
+    }
+    
   };
   const handleSignInSubmit = async (e) => {
     e.preventDefault();

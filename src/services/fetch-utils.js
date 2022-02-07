@@ -82,7 +82,8 @@ export const getUserState = async () => {
   const user = fetchUser();
   if (user) {
     const profile = await fetchUserProfile(user.id);
-    return profile[0];
+    console.log(profile);
+    return profile;
   } else return null;
 };
 

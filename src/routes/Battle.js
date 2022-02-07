@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { fetchUserProfile } from '../services/fetch-utils';
 
 export default function Battle(battle) {
-  console.log(battle.battle);
   const [challenger, setChalleger] = useState('');
   const [opponent, setOpponent] = useState('');
     
@@ -14,7 +13,7 @@ export default function Battle(battle) {
       setOpponent(opponent);
     };
     getWarriors(battle);
-  }, []);
+  }, [battle]);
   return (
     <div>
       <h3>{`${challenger.username} VS. ${opponent.username}`}</h3>

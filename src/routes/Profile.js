@@ -5,6 +5,7 @@ import UploadVideos from './UploadVideos';
 
 export default function Profile(Profile) {
   const profile = Profile.Profile;
+  console.log(profile);
   checkAuth();
   return (
     <div className='profile-container'>      

@@ -22,6 +22,7 @@ const renderApp = async () => {
   const profileData = await getUserState();
   const allUsers = await fetchAllUsers();
   const battles = await fetchAllBattles();
+  console.log(profileData);
 
   return (
     render(
