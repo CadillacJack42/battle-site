@@ -1,9 +1,11 @@
 import { checkAuth } from '../services/fetch-utils';
-import UploadMedia from './UploadMedia';
+import UploadAvatar from './UploadAvatar';
 import './Profile.css';
+import UploadVideos from './UploadVideos';
 
 export default function Profile(Profile) {
   const profile = Profile.Profile;
+  console.log(profile);
   checkAuth();
   return (
     <div className='profile-container'>      
@@ -12,7 +14,10 @@ export default function Profile(Profile) {
           ? <h1>Profile Loading</h1>
           : <div>
             <h1>{ ` Welcome ${profile.username}` }</h1>
-            <UploadMedia 
+            <UploadAvatar 
+              profile={profile}
+            />
+            <UploadVideos 
               profile={profile}
             />
           </div>

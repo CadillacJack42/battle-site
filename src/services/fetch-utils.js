@@ -10,7 +10,17 @@ export const fetchUserProfile = async (id) => {
   const profile = await client
     .from('profiles')
     .select()
-    .match({ user_id: id });
+    .match({ user_id: id })
+    .single();
+
+  return checkError(profile);
+};
+export const fetchProfileById = async (id) => {
+
+  const profile = await client
+    .from('profiles')
+    .select()
+    .match({ id });
 
   return checkError(profile);
 };
@@ -72,7 +82,8 @@ export const getUserState = async () => {
   const user = fetchUser();
   if (user) {
     const profile = await fetchUserProfile(user.id);
-    return profile[0];
+    console.log(profile);
+    return profile;
   } else return null;
 };
 
@@ -80,14 +91,37 @@ export const fetchAllUsers = async () => {
   const allUsers = await client
     .from('profiles')
     .select();
-  
-  console.log(allUsers.data);
   if (allUsers) {
     return allUsers.data;
   } else return null;
 };
 
-const putInBucket = async (user_id, media) => {
+const avatarBucket = async (user_id, media) => {
+  const response = await client 
+    .storage
+    .from('avatars')
+    .upload(`${user_id}/${media.name}`, media, {
+      cacheControl: '3600',
+      upsert: false
+    });
+  checkError(response);
+};
+
+export const uploadProfileAvatar = async (user_id, media) => {
+  const response = await client
+    .from('profiles')
+    .update({ 
+      avatar_url: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/avatars/${user_id}/${media.name}`
+    })
+    .match({ user_id });
+
+  await avatarBucket(user_id, media);
+
+  
+  return checkError(response);
+};
+
+const videoBucket = async (user_id, media) => {
   const response = await client 
     .storage
     .from('videos')
@@ -98,18 +132,46 @@ const putInBucket = async (user_id, media) => {
   checkError(response);
 };
 
-export const uploadMedia = async (user_id, media) => {
-  console.log(user_id, media);
+export const uploadNewVideo = async (user_id, media) => {
+  const user = await fetchUserProfile(user_id);
+  const videos = user[0].video_uploads;
+
   const response = await client
     .from('profiles')
     .update({ 
-      avatar_url: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user_id}/${media.name}`
+      video_uploads: [...videos, `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user_id}/${media.name}`]
     })
     .match({ user_id });
 
-  await putInBucket(user_id, media);
+  await videoBucket(user_id, media);
 
   
   return checkError(response);
 };
 
+export const uploadCallOut = async (opponent_id, media) => {
+
+  const user = fetchUser();
+
+  const response = await client
+    .from('battles')
+    .insert([{ 
+      challenger: user.id,
+      opponent: opponent_id,
+      call_out: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user.id}/${media.name}`,
+    }])
+    .match({ user_id: user.id });
+    
+  await videoBucket(user.id, media);
+
+  return checkError(response);
+};
+
+export const fetchAllBattles = async () => {
+  const response = await client
+    .from('battles')
+    .select();
+  if (response) {
+    return response.data;
+  } else return null;
+};
