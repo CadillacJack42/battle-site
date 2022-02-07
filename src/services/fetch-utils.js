@@ -82,7 +82,6 @@ export const getUserState = async () => {
   const user = fetchUser();
   if (user) {
     const profile = await fetchUserProfile(user.id);
-    console.log(profile);
     return profile;
   } else return null;
 };
@@ -174,4 +173,12 @@ export const fetchAllBattles = async () => {
   if (response) {
     return response.data;
   } else return null;
+};
+
+export const fetchMyBattles = async (user_id) => {
+  const response = await client
+    .from('battles')
+    .select()
+    .match({ opponent: user_id });
+  return checkError(response);
 };
