@@ -34,7 +34,10 @@ export default function Battle(battle) {
                 <source src={battle.battle.response} type="video/mp4"/>
               </video>
             </span> :
-            <h2 className='waiting'>Awaiting Response</h2>
+            <span>
+              <h2>{opponent.username}</h2>
+              <h2 className='waiting'>Awaiting Response</h2>
+            </span>
         }
       </div>
     </div>
