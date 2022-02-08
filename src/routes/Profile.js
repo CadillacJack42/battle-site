@@ -1,10 +1,11 @@
 import { checkAuth } from '../services/fetch-utils';
 import UploadAvatar from './UploadAvatar';
-import './Profile.css';
 import UploadVideos from './UploadVideos';
+import MyCallOuts from './MyCallOuts';
+import './Profile.css';
 
-export default function Profile(Profile) {
-  const profile = Profile.Profile;
+export default function Profile({ profile }) {
+  // const profile = Profile.Profile;
   console.log(profile);
   checkAuth();
   return (
@@ -20,6 +21,7 @@ export default function Profile(Profile) {
             <UploadVideos 
               profile={profile}
             />
+            <MyCallOuts user_id={profile.user_id}/>
           </div>
       }
     </div>

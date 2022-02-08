@@ -20,6 +20,13 @@ export default function Battle(battle) {
       <video width="400" height="300" controls>
         <source src={battle.battle.call_out} type="video/mp4"/>
       </video>
+      {
+        battle.battle.response ?
+          <video width="400" height="300" controls>
+            <source src={battle.battle.response} type="video/mp4"/>
+          </video> :
+          null
+      }
     </div>
   );
 }

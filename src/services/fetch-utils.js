@@ -82,7 +82,6 @@ export const getUserState = async () => {
   const user = fetchUser();
   if (user) {
     const profile = await fetchUserProfile(user.id);
-    console.log(profile);
     return profile;
   } else return null;
 };
@@ -174,4 +173,40 @@ export const fetchAllBattles = async () => {
   if (response) {
     return response.data;
   } else return null;
+};
+
+export const fetchMyBattles = async (user_id) => {
+  const response = await client
+    .from('battles')
+    .select()
+    .match({ opponent: user_id });
+  return checkError(response);
+};
+export const fetchMyChallenges = async (user_id) => {
+  const response = await client
+    .from('battles')
+    .select()
+    .match({ challenger: user_id });
+  return checkError(response);
+};
+
+export const respondToCallOut = async (user_id, id, media) => {
+  
+  const res = await client
+    .from('battles')
+    .update({
+      response: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user_id}/${media.name}`,
+    })
+    .match({ id: id });
+  await videoBucket(user_id, media);
+  console.log(res);
+  return checkError(res);
+};
+
+export const declineCallOut = async (id) => {
+  const response = client
+    .from('battles')
+    .delete()
+    .match({ id });
+  return checkError(response);
 };

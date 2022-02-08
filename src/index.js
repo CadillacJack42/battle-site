@@ -22,7 +22,6 @@ const renderApp = async () => {
   const profileData = await getUserState();
   const allUsers = await fetchAllUsers();
   const battles = await fetchAllBattles();
-  console.log(profileData);
 
   return (
     render(
@@ -33,7 +32,7 @@ const renderApp = async () => {
               <Route element={<Landing userProfile={profileData}/>}>
                 <Route exact path='/' element={<Home allUsers={allUsers} />} />
                 <Route exact path='/auth' element={<Auth />} />
-                <Route exact path='/profile' element={<Profile Profile={profileData}/>} />
+                <Route exact path='/profile' element={<Profile profile={profileData}/>} />
                 <Route exact path='/battles' element={<BattleField battles={battles} />} />
                 <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
               </Route>
