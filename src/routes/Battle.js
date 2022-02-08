@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUserProfile } from '../services/fetch-utils';
+import './Battle.css';
 
 export default function Battle(battle) {
   const [challenger, setChalleger] = useState('');
@@ -15,18 +16,28 @@ export default function Battle(battle) {
     getWarriors(battle);
   }, [battle]);
   return (
-    <div>
-      <h3>{`${challenger.username} VS. ${opponent.username}`}</h3>
-      <video width="400" height="300" controls>
-        <source src={battle.battle.call_out} type="video/mp4"/>
-      </video>
-      {
-        battle.battle.response ?
-          <video width="400" height="300" controls>
-            <source src={battle.battle.response} type="video/mp4"/>
-          </video> :
-          null
-      }
+    <div className='battle-container'>
+      <div className='battle'>
+        <span>
+          <h2>{challenger.username}</h2>
+          <video width="300" height="200" controls>
+            <source src={battle.battle.call_out} type="video/mp4"/>
+          </video>
+        </span>
+      
+        <h1>VS.</h1>
+        {
+          battle.battle.response ?
+            <span>
+              <h2>{opponent.username}</h2>
+              <video width="300" height="200" controls>
+                <source src={battle.battle.response} type="video/mp4"/>
+              </video>
+            </span> :
+            <h2 className='waiting'>Awaiting Response</h2>
+        }
+      </div>
     </div>
+    
   );
 }

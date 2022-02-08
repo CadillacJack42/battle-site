@@ -133,7 +133,8 @@ const videoBucket = async (user_id, media) => {
 
 export const uploadNewVideo = async (user_id, media) => {
   const user = await fetchUserProfile(user_id);
-  const videos = user[0].video_uploads;
+  console.log(user);
+  const videos = user.video_uploads;
 
   const response = await client
     .from('profiles')
