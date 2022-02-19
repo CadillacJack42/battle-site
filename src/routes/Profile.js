@@ -7,7 +7,7 @@ import './Profile.css';
 export default function Profile({ profile }) {
   // const profile = Profile.Profile;
   console.log(profile);
-  checkAuth();
+  // checkAuth();
   return (
     <div className="profile-container">
       {!profile ? (

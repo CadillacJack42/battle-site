@@ -75,6 +75,7 @@ export const getUserState = async () => {
 
 export const fetchAllUsers = async () => {
   const allUsers = await client.from('profiles').select();
+  console.log(allUsers);
   if (allUsers) {
     return allUsers.data;
   } else return null;
@@ -159,6 +160,7 @@ export const fetchMyBattles = async (user_id) => {
   const response = await client.from('battles').select().match({ opponent: user_id });
   return checkError(response);
 };
+
 export const fetchMyChallenges = async (user_id) => {
   const response = await client.from('battles').select().match({ challenger: user_id });
   return checkError(response);
@@ -177,7 +179,7 @@ export const respondToCallOut = async (user_id, id, media) => {
 };
 
 export const declineCallOut = async (id) => {
-  const response = client.from('battles').delete().match({ id });
+  const response = await client.from('battles').delete().match({ id });
   return checkError(response);
 };
 
