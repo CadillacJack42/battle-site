@@ -1,11 +1,9 @@
-import { checkAuth } from '../services/fetch-utils';
 import UploadAvatar from './UploadAvatar';
 import UploadVideos from './UploadVideos';
 import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
 export default function Profile({ profile, setUserData }) {
-  console.log(profile);
   return (
     <div className="profile-container">
       {!profile ? (

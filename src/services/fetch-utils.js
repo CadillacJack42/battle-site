@@ -10,8 +10,15 @@ export const fetchUserProfile = async (id) => {
 
   return checkError(profile);
 };
+
 export const fetchProfileById = async (id) => {
   const profile = await client.from('profiles').select().match({ id });
+
+  return checkError(profile);
+};
+
+export const fetchProfileByUserId = async (user_id) => {
+  const profile = await client.from('profiles').select().match({ user_id });
 
   return checkError(profile);
 };
@@ -65,17 +72,15 @@ export const uploadVideo = async ({ newVideo }) => {
   ]);
 };
 
-export const getUserState = async () => {
-  const user = fetchUser();
+export const getUserState = async (user) => {
   if (user) {
-    const profile = await fetchUserProfile(user.id);
+    const profile = await fetchUserProfile(user);
     return profile;
   } else return null;
 };
 
 export const fetchAllUsers = async () => {
   const allUsers = await client.from('profiles').select();
-  console.log(allUsers);
   if (allUsers) {
     return allUsers.data;
   } else return null;
@@ -112,7 +117,6 @@ const videoBucket = async (user_id, media) => {
 
 export const uploadNewVideo = async (user_id, media) => {
   const user = await fetchUserProfile(user_id);
-  console.log(user);
   const videos = user.video_uploads;
 
   const response = await client
@@ -174,7 +178,6 @@ export const respondToCallOut = async (user_id, id, media) => {
     })
     .match({ id: id });
   await videoBucket(user_id, media);
-  console.log(res);
   return checkError(res);
 };
 
@@ -184,7 +187,6 @@ export const declineCallOut = async (id) => {
 };
 
 export const submitComment = async (battle, newComment) => {
-  console.log(battle);
   const response = await client
     .from('comments')
     .upsert({ comments: newComment, battle: battle.id }, { onConflict: 'battle' })

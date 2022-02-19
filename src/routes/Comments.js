@@ -6,7 +6,6 @@ import './Comments.css';
 import { useState } from 'react';
 
 export default function Comments({ battle, profile }) {
-  console.log(profile);
   const [comments, setComments] = useState('');
 
   useEffect(() => {

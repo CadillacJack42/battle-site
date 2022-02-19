@@ -4,22 +4,26 @@ import { fetchAllBattles, fetchAllUsers, getUserState } from '../services/fetch-
 
 export default function Truth() {
   const [userData, setUserData] = useState({});
+  const [profile, setProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [battles, setBattles] = useState([]);
 
   useEffect(() => {
+    const setState = async () => {
+      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      setUserData(userInfo.currentSession.user);
+
+      console.log(userInfo.currentSession.user.id);
+      const profile = await getUserState(userInfo.currentSession.user.id);
+      setProfile(profile);
+
+      const users = await fetchAllUsers();
+      setAllUsers(users);
+      const battleList = await fetchAllBattles();
+      setBattles(battleList);
+    };
     setState();
   }, []);
-
-  const setState = async () => {
-    const profile = await getUserState();
-    setUserData(profile);
-    const users = await fetchAllUsers();
-    await setAllUsers(users);
-    const battleList = await fetchAllBattles();
-    console.log(profile);
-    setBattles(battleList);
-  };
 
   const Landing = lazy(() => import('../App'));
   const Home = lazy(() => import('./Home'));
@@ -33,7 +37,7 @@ export default function Truth() {
       <Suspense fallback={<div>...Loading</div>}>
         <BrowserRouter>
           <Routes>
-            <Route element={<Landing userProfile={userData} />}>
+            <Route element={<Landing userProfile={profile} />}>
               <Route exact path="/" element={<Home allUsers={allUsers} />} />
               <Route exact path="/auth" element={<Auth />} />
               <Route
@@ -41,7 +45,7 @@ export default function Truth() {
                 path="/profile"
                 element={
                   userData ? (
-                    <Profile profile={userData} setUserData={setUserData} />
+                    <Profile profile={profile} setUserData={setUserData} />
                   ) : (
                     <Navigate replace to={'/auth'} />
                   )
