@@ -9,21 +9,17 @@ export default function Profile({ profile }) {
   console.log(profile);
   checkAuth();
   return (
-    <div className='profile-container'>      
-      {
-        !Profile
-          ? <h1>Profile Loading</h1>
-          : <div>
-            <h1>{ ` Welcome ${profile.username}` }</h1>
-            <UploadAvatar 
-              profile={profile}
-            />
-            <UploadVideos 
-              profile={profile}
-            />
-            <MyCallOuts user_id={profile.user_id}/>
-          </div>
-      }
+    <div className="profile-container">
+      {!profile ? (
+        <h1>Profile Loading</h1>
+      ) : (
+        <div>
+          <h1>{` Welcome ${profile.username}`}</h1>
+          <UploadAvatar profile={profile} />
+          <UploadVideos profile={profile} />
+          <MyCallOuts user_id={profile.user_id} />
+        </div>
+      )}
     </div>
   );
 }

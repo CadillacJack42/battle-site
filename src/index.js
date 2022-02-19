@@ -33,7 +33,7 @@ const renderApp = async () => {
                 <Route exact path='/' element={<Home allUsers={allUsers} />} />
                 <Route exact path='/auth' element={<Auth />} />
                 <Route exact path='/profile' element={<Profile profile={profileData}/>} />
-                <Route exact path='/battles' element={<BattleField battles={battles} />} />
+                <Route exact path='/battles' element={<BattleField battles={battles} profile={profileData}/>} />
                 <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
               </Route>
             </Routes>

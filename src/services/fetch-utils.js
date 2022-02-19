@@ -211,3 +211,22 @@ export const declineCallOut = async (id) => {
     .match({ id });
   return checkError(response);
 };
+
+export const submitComment = async (battle, newComment) => {
+  console.log(battle);
+  const response = await client 
+    .from('comments')
+    .upsert({ comments: newComment, battle: battle.id }, { onConflict: 'battle' })
+    .match({ battle: battle.id });
+
+  return checkError(response);
+};
+
+export const fetchComments = async (id) => {
+  const response = await client
+    .from('comments')
+    .select()
+    .match({ battle: id });
+
+  return checkError(response);
+};

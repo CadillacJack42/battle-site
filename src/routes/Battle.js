@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import Comments from './Comments';
 import { fetchUserProfile } from '../services/fetch-utils';
 import './Battle.css';
 
-export default function Battle(battle) {
+export default function Battle({ battle, profile }) {
+  // console.log(battle);
   const [challenger, setChalleger] = useState('');
   const [opponent, setOpponent] = useState('');
     
   useEffect(() => {
     const getWarriors = async (battle) => {
-      const challenger = await fetchUserProfile(battle.battle.challenger);
-      const opponent = await fetchUserProfile(battle.battle.opponent);
+      const challenger = await fetchUserProfile(battle.challenger);
+      const opponent = await fetchUserProfile(battle.opponent);
       setChalleger(challenger);
       setOpponent(opponent);
     };
@@ -17,28 +19,32 @@ export default function Battle(battle) {
   }, [battle]);
   return (
     <div className='battle-container'>
-      <div className='battle'>
-        <span>
-          <h2>{challenger.username}</h2>
-          <video width="300" height="200" controls>
-            <source src={battle.battle.call_out} type="video/mp4"/>
-          </video>
-        </span>
+      <div>
+        <div className='battle'>
+          <span>
+            <h2>{challenger.username}</h2>
+            <video width="300" height="200" controls>
+              <source src={battle.call_out} type="video/mp4"/>
+            </video>
+          </span>
       
-        <h1>VS.</h1>
-        {
-          battle.battle.response ?
-            <span>
-              <h2>{opponent.username}</h2>
-              <video width="300" height="200" controls>
-                <source src={battle.battle.response} type="video/mp4"/>
-              </video>
-            </span> :
-            <span>
-              <h2>{opponent.username}</h2>
-              <h2 className='waiting'>Awaiting Response</h2>
-            </span>
-        }
+          <h1>VS.</h1>
+          {
+            battle.response ?
+              <span>
+                <h2>{opponent.username}</h2>
+                <video width="300" height="200" controls>
+                  <source src={battle.response} type="video/mp4"/>
+                </video>
+              </span> :
+              <span>
+                <h2>{opponent.username}</h2>
+                <h2 className='waiting'>Awaiting Response</h2>
+              </span>
+          }
+        </div>
+        <Comments battle={battle} profile={profile}/>
+        
       </div>
     </div>
     
