@@ -35,7 +35,14 @@ export default function Comments({ battle, profile }) {
               <p>Comments Loading</p>
             )}
           </div>
-          {profile && <UploadComment comments={comments} profile={profile} battle={battle} />}
+          {profile && (
+            <UploadComment
+              comments={comments}
+              profile={profile}
+              battle={battle}
+              setComments={setComments}
+            />
+          )}
         </div>
       ) : (
         <div>
