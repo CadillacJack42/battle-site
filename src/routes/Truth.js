@@ -40,7 +40,11 @@ export default function Truth() {
                 exact
                 path="/profile"
                 element={
-                  userData ? <Profile profile={userData} /> : <Navigate replace to={'/auth'} />
+                  userData ? (
+                    <Profile profile={userData} setUserData={setUserData} />
+                  ) : (
+                    <Navigate replace to={'/auth'} />
+                  )
                 }
               />
               <Route

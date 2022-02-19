@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { uploadProfileAvatar } from '../services/fetch-utils';
+import { getUserState, uploadProfileAvatar } from '../services/fetch-utils';
 
-export default function UploadAvatar(profile) {
-  const userProfile = profile.profile;
+export default function UploadAvatar({ profile, setUserData }) {
+  const userProfile = profile;
 
   const [media, setMedia] = useState('');
 
@@ -10,24 +10,25 @@ export default function UploadAvatar(profile) {
     setMedia(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    uploadProfileAvatar(userProfile.user_id, media);
+    await uploadProfileAvatar(userProfile.user_id, media);
     setMedia('success');
+    const response = await getUserState();
+    await setUserData(response);
   };
-  return <div>
-    <h3>Change Avatar</h3>
-    <form onSubmit={handleSubmit}>
-      <label>
-        <input 
-          type='file'
-          onChange={handleMediaChange}
-        ></input>
-      </label>
-      <button>Submit</button>
-    </form>
-    <br></br>
-    <hr></hr>
-    <br></br>
-  </div>;
+  return (
+    <div>
+      <h3>Change Avatar</h3>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input type="file" onChange={handleMediaChange}></input>
+        </label>
+        <button>Submit</button>
+      </form>
+      <br></br>
+      <hr></hr>
+      <br></br>
+    </div>
+  );
 }

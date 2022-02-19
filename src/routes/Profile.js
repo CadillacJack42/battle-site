@@ -4,10 +4,8 @@ import UploadVideos from './UploadVideos';
 import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
-export default function Profile({ profile }) {
-  // const profile = Profile.Profile;
+export default function Profile({ profile, setUserData }) {
   console.log(profile);
-  // checkAuth();
   return (
     <div className="profile-container">
       {!profile ? (
@@ -15,7 +13,7 @@ export default function Profile({ profile }) {
       ) : (
         <div>
           <h1>{` Welcome ${profile.username}`}</h1>
-          <UploadAvatar profile={profile} />
+          <UploadAvatar profile={profile} setUserData={setUserData} />
           <UploadVideos profile={profile} />
           <MyCallOuts user_id={profile.user_id} />
         </div>
