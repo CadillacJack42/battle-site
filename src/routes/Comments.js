@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import Comment from './Comment';
-import UploadComment from './UploadComment';
 import { fetchComments } from '../services/fetch-utils';
-import './Comments.css';
+import UploadComment from './UploadComment';
 import { useState } from 'react';
+import Comment from './Comment';
+import './Comments.css';
 
-export default function Comments({ battle, profile }) {
-  console.log(profile);
+export default function Comments({ battle, profile, opponent }) {
   const [comments, setComments] = useState('');
 
   useEffect(() => {
@@ -35,14 +34,14 @@ export default function Comments({ battle, profile }) {
               <p>Comments Loading</p>
             )}
           </div>
-          {profile === {} && (
-            <UploadComment
-              comments={comments}
-              profile={profile}
-              battle={battle}
-              setComments={setComments}
-            />
-          )}
+
+          <UploadComment
+            comments={comments}
+            profile={profile}
+            battle={battle}
+            setComments={setComments}
+            opponent={opponent}
+          />
         </div>
       ) : (
         <div>

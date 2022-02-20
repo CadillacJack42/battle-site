@@ -70,7 +70,7 @@ export default function Truth() {
             <Routes>
               <Route element={<Landing userProfile={profile} />}>
                 <Route exact path="/" element={<Home allUsers={allUsers} />} />
-                <Route exact path="/auth" element={<Auth />} />
+                <Route exact path="/auth" element={<Auth setUserData={setUserData} />} />
                 <Route
                   exact
                   path="/profile"

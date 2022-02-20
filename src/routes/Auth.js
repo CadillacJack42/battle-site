@@ -1,19 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { signUpUser, createProfile, signInUser } from '../services/fetch-utils';
 import SignUpForm from '../SignUpForm';
 import './Auth.css';
-
-export default function Auth() {
-
+export default function Auth({ setUserData }) {
   const [usernameSignUp, setUsernameSignUp] = useState('');
-  
+
   const [emailSignUp, setEmailSignUp] = useState('');
   const [emailSignIN, setEmailSignIN] = useState('');
 
   const [passwordSignUp, setPasswordSignUp] = useState('');
   const [passwordSignIn, setPasswordSignIn] = useState('');
-
 
   const handleSignUpUsernameChange = (e) => {
     setUsernameSignUp(e.target.value);
@@ -35,31 +33,36 @@ export default function Auth() {
     const user = await signUpUser(emailSignUp, passwordSignUp);
     await createProfile(usernameSignUp, emailSignUp);
     if (user) {
+      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      await setUserData(userInfo.currentSession.user);
       location.replace('/profile');
     }
-    
   };
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
     const user = await signInUser(emailSignIN, passwordSignIn);
     if (user) {
+      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      await setUserData(userInfo.currentSession.user);
       location.replace('/profile');
     }
   };
-  return <div className='auth-container'>
-    <SignUpForm 
-      handleSignUpSubmit={handleSignUpSubmit}
-      usernameSignUp={usernameSignUp}
-      handleSignUpUsernameChange={handleSignUpUsernameChange}
-      passwordSignUp={passwordSignUp}
-      handleSignUpPasswordChange={handleSignUpPasswordChange}
-      emailSignUp={emailSignUp}
-      handleSignUPEmailChange={handleSignUPEmailChange}
-      handleSignInSubmit={handleSignInSubmit}
-      emailSignIn={emailSignIN}
-      handleSignINEmailChange={handleSignINEmailChange}
-      passwordSignIn={passwordSignIn}
-      handleSignInPasswordChange={handleSignInPasswordChange}
-    />
-  </div>;
+  return (
+    <div className="auth-container">
+      <SignUpForm
+        handleSignUpSubmit={handleSignUpSubmit}
+        usernameSignUp={usernameSignUp}
+        handleSignUpUsernameChange={handleSignUpUsernameChange}
+        passwordSignUp={passwordSignUp}
+        handleSignUpPasswordChange={handleSignUpPasswordChange}
+        emailSignUp={emailSignUp}
+        handleSignUPEmailChange={handleSignUPEmailChange}
+        handleSignInSubmit={handleSignInSubmit}
+        emailSignIn={emailSignIN}
+        handleSignINEmailChange={handleSignINEmailChange}
+        passwordSignIn={passwordSignIn}
+        handleSignInPasswordChange={handleSignInPasswordChange}
+      />
+    </div>
+  );
 }
