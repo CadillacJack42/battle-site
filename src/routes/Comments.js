@@ -6,6 +6,7 @@ import './Comments.css';
 import { useState } from 'react';
 
 export default function Comments({ battle, profile }) {
+  console.log(profile);
   const [comments, setComments] = useState('');
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Comments({ battle, profile }) {
               <p>Comments Loading</p>
             )}
           </div>
-          {profile && (
+          {profile === {} && (
             <UploadComment
               comments={comments}
               profile={profile}

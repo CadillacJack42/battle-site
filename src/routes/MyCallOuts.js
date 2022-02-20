@@ -3,8 +3,6 @@ import './MyCallOuts.css';
 import RespondToCallOut from './RespondToCallOut';
 
 export default function MyCallOuts({ user_id, callOuts, challengers, isLoading }) {
-  console.log(callOuts);
-  console.log(challengers);
   return (
     <div>
       {!isLoading ? (

@@ -20,11 +20,13 @@ export default function Truth() {
 
   useEffect(() => {
     const setState = async () => {
-      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
-      await setUserData(userInfo.currentSession.user);
-
       await setLoading(true);
-      const profile = await getUserState(userInfo.currentSession.user.id);
+
+      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      userInfo ? await setUserData(userInfo.currentSession.user) : null;
+
+      let profile;
+      userInfo ? (profile = await getUserState(userInfo.currentSession.user.id)) : (profile = null);
       await setProfile(profile);
 
       const users = await fetchAllUsers();
@@ -33,8 +35,9 @@ export default function Truth() {
       const battleList = await fetchAllBattles();
       await setBattles(battleList);
 
-      const myCallOuts = await fetchMyBattles(userInfo.currentSession.user.id);
-      await setCallOuts([...myCallOuts]);
+      let myCallOuts;
+      userInfo ? (myCallOuts = await fetchMyBattles(userInfo.currentSession.user.id)) : null;
+      userInfo ? await setCallOuts([...myCallOuts]) : null;
     };
     setState();
   }, []);
@@ -72,7 +75,7 @@ export default function Truth() {
                   exact
                   path="/profile"
                   element={
-                    profile.user_id ? (
+                    profile ? (
                       <Profile
                         profile={profile}
                         setUserData={setUserData}
