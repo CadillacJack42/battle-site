@@ -5,8 +5,7 @@ import { useState } from 'react';
 import Comment from './Comment';
 import './Comments.css';
 
-export default function Comments({ battle, opponent, userProfile }) {
-  console.log(opponent);
+export default function Comments({ battle, userProfile }) {
   const [comments, setComments] = useState('');
 
   useEffect(() => {
@@ -40,7 +39,6 @@ export default function Comments({ battle, opponent, userProfile }) {
             comments={comments}
             battle={battle}
             setComments={setComments}
-            opponent={opponent}
             userProfile={userProfile}
           />
         </div>

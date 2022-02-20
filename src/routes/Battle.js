@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Comments from './Comments';
-import { fetchUserProfile } from '../services/fetch-utils';
 import './Battle.css';
 
-export default function Battle({ battle, profile, userProfile }) {
-  console.log(userProfile);
-  // const [challenger, setChalleger] = useState('');
-  // const [opponent, setOpponent] = useState('');
-
-  // useEffect(() => {
-  //   const getWarriors = async (battle) => {
-  //     const challenger = await fetchUserProfile(battle.challenger);
-  //     const opponent = await fetchUserProfile(battle.opponent);
-  //     setChalleger(challenger);
-  //     setOpponent(opponent);
-  //   };
-  //   getWarriors(battle);
-  // }, [battle]);
+export default function Battle({ battle, userProfile }) {
   return (
     <div className="battle-container">
       <div>
@@ -43,12 +29,7 @@ export default function Battle({ battle, profile, userProfile }) {
             </span>
           )}
         </div>
-        <Comments
-          battle={battle}
-          profile={profile}
-          opponent={battle.challenger_username}
-          userProfile={userProfile}
-        />
+        <Comments battle={battle} userProfile={userProfile} />
       </div>
     </div>
   );

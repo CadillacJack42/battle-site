@@ -22,10 +22,8 @@ export default function Truth() {
     const setState = async () => {
       await setLoading(true);
 
-      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
-      userInfo ? await setUserData(userInfo.currentSession.user) : null;
-
       let profile;
+      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
       userInfo ? (profile = await getUserState(userInfo.currentSession.user.id)) : (profile = null);
       await setProfile(profile);
 
@@ -92,9 +90,7 @@ export default function Truth() {
                 <Route
                   exact
                   path="/battles"
-                  element={
-                    <BattleField battles={battles} profile={userData} userProfile={profile} />
-                  }
+                  element={<BattleField battles={battles} userProfile={profile} />}
                 />
                 <Route
                   exact
