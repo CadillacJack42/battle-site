@@ -134,21 +134,21 @@ export const uploadNewVideo = async (user_id, media) => {
   return checkError(response);
 };
 
-export const uploadCallOut = async (opponent_id, media) => {
-  const user = fetchUser();
-
+export const uploadCallOut = async (opponent, media, currentUser) => {
   const response = await client
     .from('battles')
     .insert([
       {
-        challenger: user.id,
-        opponent: opponent_id,
-        call_out: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${user.id}/${media.name}`,
+        challenger: currentUser.user_id,
+        challenger_username: currentUser.username,
+        opponent: opponent.user_id,
+        opponent_username: opponent.username,
+        call_out: `https://nqbvdgzoxvmdlnjovyqu.supabase.in/storage/v1/object/public/videos/${currentUser.user_id}/${media.name}`,
       },
     ])
-    .match({ user_id: user.id });
+    .match({ user_id: currentUser.user_id });
 
-  await videoBucket(user.id, media);
+  await videoBucket(currentUser.user_id, media);
 
   return checkError(response);
 };

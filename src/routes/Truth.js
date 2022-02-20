@@ -94,7 +94,11 @@ export default function Truth() {
                   path="/battles"
                   element={<BattleField battles={battles} profile={userData} />}
                 />
-                <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
+                <Route
+                  exact
+                  path={`/public-profile/:id`}
+                  element={<PublicProfile currentUser={profile} />}
+                />
                 <Route exact path="/events" element={<Events />} />
               </Route>
             </Routes>

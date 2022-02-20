@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { uploadCallOut } from '../services/fetch-utils';
 
-export default function CallOutForm(opponent) {
+export default function CallOutForm({ opponent, currentUser }) {
+  console.log(currentUser);
   const [callOut, setCallOut] = useState('');
 
   const handleChange = (e) => {
@@ -10,18 +11,17 @@ export default function CallOutForm(opponent) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadCallOut(opponent.opponent, callOut);
+    uploadCallOut(opponent, callOut, currentUser);
   };
-  return <div>
-    <form onSubmit={handleSubmit}>
-      <label>
-              Upload video to initiate Call Out
-        <input
-          type='file'
-          onChange={handleChange}
-        ></input>
-      </label>
-      <button>Submit</button>
-    </form>
-  </div>;
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Upload video to initiate Call Out
+          <input type="file" onChange={handleChange}></input>
+        </label>
+        <button>Submit</button>
+      </form>
+    </div>
+  );
 }
