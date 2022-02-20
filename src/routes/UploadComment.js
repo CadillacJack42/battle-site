@@ -2,7 +2,8 @@ import React from 'react';
 import { useState } from 'react/cjs/react.development';
 import { submitComment, fetchComments } from '../services/fetch-utils';
 
-export default function UploadComment({ comments, profile, battle, setComments, opponent }) {
+export default function UploadComment({ comments, battle, setComments, opponent, userProfile }) {
+  console.log(opponent);
   const [comment, setComment] = useState('');
 
   const handleChange = (e) => {
@@ -12,7 +13,7 @@ export default function UploadComment({ comments, profile, battle, setComments, 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const commentObject = {
-      username: opponent.username,
+      username: userProfile.username,
       comment: comment,
     };
     let newComment;

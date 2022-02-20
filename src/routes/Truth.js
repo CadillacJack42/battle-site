@@ -92,7 +92,9 @@ export default function Truth() {
                 <Route
                   exact
                   path="/battles"
-                  element={<BattleField battles={battles} profile={userData} />}
+                  element={
+                    <BattleField battles={battles} profile={userData} userProfile={profile} />
+                  }
                 />
                 <Route
                   exact

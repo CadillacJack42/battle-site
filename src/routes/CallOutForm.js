@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { uploadCallOut } from '../services/fetch-utils';
 
 export default function CallOutForm({ opponent, currentUser }) {
-  console.log(currentUser);
   const [callOut, setCallOut] = useState('');
 
   const handleChange = (e) => {
