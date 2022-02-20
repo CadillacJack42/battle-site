@@ -14,18 +14,6 @@ export default function Home({ allUsers }) {
           </div>
         ) : null;
       })}
-
-      {/* {allUsers.map((user, i) => {
-        return (
-          <div onClick={() => location.replace(`./public-profile/${user.id}`)} key={user + i}>
-            <h2>{user.username}</h2>
-
-            <video width="400" height="300" controls key={user.username + i}>
-              <source src={user.video_uploads[user.video_uploads.length - 1]} type="video/mp4" />
-            </video>
-          </div>
-        );
-      })} */}
     </div>
   );
 }
