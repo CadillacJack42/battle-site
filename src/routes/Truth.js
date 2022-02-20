@@ -95,8 +95,8 @@ export default function Truth() {
                   element={<BattleField battles={battles} profile={userData} />}
                 />
                 <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
+                <Route exact path="/events" element={<Events />} />
               </Route>
-              <Route exact path="/events" element={<Events />} />
             </Routes>
           ) : (
             <h1>Just a Moment While We Load Up Your Data</h1>
