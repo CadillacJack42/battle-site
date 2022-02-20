@@ -3,7 +3,7 @@ import UploadVideos from './UploadVideos';
 import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
-export default function Profile({ profile, setUserData }) {
+export default function Profile({ profile, setUserData, callOuts, challengers, isLoading }) {
   return (
     <div className="profile-container">
       {!profile ? (
@@ -13,7 +13,12 @@ export default function Profile({ profile, setUserData }) {
           <h1>{` Welcome ${profile.username}`}</h1>
           <UploadAvatar profile={profile} setUserData={setUserData} />
           <UploadVideos profile={profile} />
-          <MyCallOuts user_id={profile.user_id} />
+          <MyCallOuts
+            user_id={profile.user_id}
+            callOuts={callOuts}
+            challengers={challengers}
+            isLoading={isLoading}
+          />
         </div>
       )}
     </div>

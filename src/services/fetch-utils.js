@@ -18,7 +18,7 @@ export const fetchProfileById = async (id) => {
 };
 
 export const fetchProfileByUserId = async (user_id) => {
-  const profile = await client.from('profiles').select().match({ user_id });
+  const profile = await client.from('profiles').select().match({ user_id }).single();
 
   return checkError(profile);
 };
