@@ -35,6 +35,9 @@ export default function Nav(username) {
           Public Profile
         </Link>{' '}
         |{' '}
+        <Link className="nav-link" to="/events">
+          Live Events
+        </Link>{' '}
         {username.Data ? (
           <button className="logout nav-link" onClick={logout}>
             Logout

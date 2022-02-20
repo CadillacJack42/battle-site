@@ -4,7 +4,6 @@ import { submitComment, fetchComments } from '../services/fetch-utils';
 
 export default function UploadComment({ comments, profile, battle, setComments, opponent }) {
   const [comment, setComment] = useState('');
-  console.log(profile);
 
   const handleChange = (e) => {
     setComment(e.target.value);
@@ -20,7 +19,6 @@ export default function UploadComment({ comments, profile, battle, setComments, 
     comments.length > 0
       ? (newComment = [...comments[0].comments, commentObject])
       : (newComment = [commentObject]);
-    console.log(battle);
     await submitComment(battle, newComment);
     const updatedComments = await fetchComments(battle.id);
 

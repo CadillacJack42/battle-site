@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { uploadNewVideo } from '../services/fetch-utils';
 
 export default function UploadVideos({ profile }) {
-  console.log(profile);
-
   const [media, setMedia] = useState('');
 
   const handleMediaChange = (e) => {

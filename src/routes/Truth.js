@@ -61,6 +61,7 @@ export default function Truth() {
   const Profile = lazy(() => import('./Profile'));
   const BattleField = lazy(() => import('./BattleField'));
   const PublicProfile = lazy(() => import('./PublicProfile'));
+  const Events = lazy(() => import('./Events'));
 
   return (
     <div>
@@ -95,6 +96,7 @@ export default function Truth() {
                 />
                 <Route exact path={`/public-profile/:id`} element={<PublicProfile />} />
               </Route>
+              <Route exact path="/events" element={<Events />} />
             </Routes>
           ) : (
             <h1>Just a Moment While We Load Up Your Data</h1>
