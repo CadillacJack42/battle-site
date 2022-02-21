@@ -9,7 +9,7 @@ import {
 } from '../services/fetch-utils';
 
 export default function Truth() {
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
   const [profile, setProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [battles, setBattles] = useState([]);
@@ -51,7 +51,7 @@ export default function Truth() {
       setLoading(false);
     };
     getAndSetChallengers();
-  }, [callOuts]);
+  }, [callOuts, challengers]);
 
   const Landing = lazy(() => import('../App'));
   const Home = lazy(() => import('./Home'));
