@@ -15,7 +15,7 @@ export default function Truth() {
   const [battles, setBattles] = useState([]);
 
   const [callOuts, setCallOuts] = useState([]);
-  const [challengers, setChallengers] = useState([]);
+  // const [challengers, setChallengers] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,18 +40,18 @@ export default function Truth() {
     setState();
   }, []);
 
-  useEffect(() => {
-    let newArray = [];
-    const getAndSetChallengers = async () => {
-      callOuts.map(async (callOut) => {
-        let response = await fetchProfileByUserId(callOut.challenger);
-        newArray = [...newArray, response];
-        await setChallengers([...newArray, challengers]);
-      });
-      setLoading(false);
-    };
-    getAndSetChallengers();
-  }, [callOuts, challengers]);
+  // useEffect(() => {
+  //   let newArray = [];
+  //   const getAndSetChallengers = async () => {
+  //     callOuts.map(async (callOut) => {
+  //       let response = await fetchProfileByUserId(callOut.challenger);
+  //       newArray = [...newArray, response];
+  //       await setChallengers([...newArray, challengers]);
+  //     });
+  //     setLoading(false);
+  //   };
+  //   getAndSetChallengers();
+  // }, [callOuts, challengers]);
 
   const Landing = lazy(() => import('../App'));
   const Home = lazy(() => import('./Home'));
@@ -78,7 +78,7 @@ export default function Truth() {
                       <Profile
                         profile={profile}
                         callOuts={callOuts}
-                        challengers={challengers}
+                        // challengers={challengers}
                         isLoading={isLoading}
                       />
                     ) : (

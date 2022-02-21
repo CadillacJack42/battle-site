@@ -2,7 +2,7 @@ import React from 'react';
 import './MyCallOuts.css';
 import RespondToCallOut from './RespondToCallOut';
 
-export default function MyCallOuts({ user_id, callOuts, challengers, isLoading }) {
+export default function MyCallOuts({ user_id, callOuts, isLoading }) {
   return (
     <div>
       {!isLoading ? (
@@ -10,9 +10,8 @@ export default function MyCallOuts({ user_id, callOuts, challengers, isLoading }
           {callOuts.map((callOut, i) => {
             return (
               <div key={callOut.opponent + i}>
-                {challengers.length > 0 && (
-                  <p>{`User ${challengers[i].username} has called you out`}</p>
-                )}
+                <p>{`User ${callOut.challenger_username} has called you out`}</p>
+
                 <video width="400" height="300" controls>
                   <source src={callOut.call_out} type="video/mp4" />
                 </video>
