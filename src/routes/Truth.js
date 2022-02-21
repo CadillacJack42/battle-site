@@ -37,6 +37,7 @@ export default function Truth() {
       userInfo ? await setCallOuts([...myCallOuts]) : null;
     };
     setState();
+    setLoading(false);
   }, []);
 
   // useEffect(() => {
