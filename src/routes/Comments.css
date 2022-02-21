@@ -1,0 +1,19 @@
+.comment-container {
+    height: 200px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    background-color: rgb(205, 223, 255);
+}
+
+.comments-section {
+    border: 1px solid black;
+    height: 175px;
+    margin: .2%;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    overflow: scroll;
+}
+
+.comment-header {
+    margin: 0;
+}
