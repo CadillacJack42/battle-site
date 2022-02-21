@@ -65,45 +65,45 @@ export default function Truth() {
     <div>
       <Suspense fallback={<div>...Loading</div>}>
         <BrowserRouter>
-          {!isLoading ? (
-            <Routes>
-              <Route element={<Landing userProfile={profile} />}>
-                <Route exact path="/" element={<Home allUsers={allUsers} />} />
-                <Route exact path="/auth" element={<Auth />} />
-                <Route
-                  exact
-                  path="/profile"
-                  element={
-                    profile ? (
-                      <Profile
-                        profile={profile}
-                        callOuts={callOuts}
-                        // challengers={challengers}
-                        isLoading={isLoading}
-                      />
-                    ) : (
-                      <Navigate replace to={'/auth'} />
-                    )
-                  }
-                />
-                <Route
-                  exact
-                  path="/battles"
-                  element={<BattleField battles={battles} userProfile={profile} />}
-                />
-                <Route
-                  exact
-                  path={`/public-profile/:id`}
-                  element={<PublicProfile currentUser={profile} />}
-                />
-                <Route exact path="/events" element={<Events />} />
-              </Route>
-            </Routes>
-          ) : (
-            <h1>Just a Moment While We Load Up Your Data</h1>
-          )}
+          <Routes>
+            <Route element={<Landing userProfile={profile} />}>
+              <Route exact path="/" element={<Home allUsers={allUsers} />} />
+              <Route exact path="/auth" element={<Auth />} />
+              <Route
+                exact
+                path="/profile"
+                element={
+                  profile ? (
+                    <Profile
+                      profile={profile}
+                      callOuts={callOuts}
+                      // challengers={challengers}
+                      isLoading={isLoading}
+                    />
+                  ) : (
+                    <Navigate replace to={'/auth'} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/battles"
+                element={<BattleField battles={battles} userProfile={profile} />}
+              />
+              <Route
+                exact
+                path={`/public-profile/:id`}
+                element={<PublicProfile currentUser={profile} />}
+              />
+              <Route exact path="/events" element={<Events />} />
+            </Route>
+          </Routes>
         </BrowserRouter>
       </Suspense>
     </div>
+    // {!isLoading ? (
+    // ) : (
+    //   <h1>Just a Moment While We Load Up Your Data</h1>
+    // )}
   );
 }
