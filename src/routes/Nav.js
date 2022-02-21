@@ -12,7 +12,7 @@ export default function Nav(username) {
           <h1 className="user-nav-greetings">{`Welcome ${username.Data.username}`}</h1>
         </div>
       ) : null}
-      <h1>Do you have what it takes to be the best?</h1>
+      {/* <h1>Do you have what it takes to be the best?</h1> */}
       <nav
         style={{
           borderBottom: '1px solid black',

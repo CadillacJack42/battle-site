@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-// import App from './App';q
-import Nav from './routes/Nav';
+import FakeTestFile from './fakeTestFile';
+// import Nav from './routes/Nav';
 
 test('renders learn react link', () => {
-  render(<Nav />);
-  const linkElement = screen.getByText(/do you have what it takes/i);
+  render(<FakeTestFile />);
+  const linkElement = screen.getByText(/fakeTEstFile/i);
   expect(linkElement).toBeInTheDocument();
 });
