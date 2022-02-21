@@ -5,7 +5,10 @@
     align-items: center;
     border: 1px solid black;
     margin: 1% 5%;
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
+    /* background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%); */
+    background-image: linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%);
+    /* background-image: linear-gradient(-225deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%); */
     height: 550px;
 }
 
@@ -17,7 +20,9 @@
     border: 1px solid black;
     margin: 10px auto;
     padding: 15px;
-    background-color: cyan;
+    /* background-color: cyan; */
+    /* background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%); */
+    /* background-image: linear-gradient(-225deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%); */
 }
 
 h2 {

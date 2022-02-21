@@ -1,6 +1,7 @@
 .nav-pane {
     text-align: center;
-    background-color: turquoise;
+    /* background-color: turquoise; */
+    /* background-image: linear-gradient(to top,#b490ca 0%,  #5ee7df 100%); */
 }
 
 .nav-link {

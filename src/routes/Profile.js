@@ -13,12 +13,7 @@ export default function Profile({ profile, callOuts, isLoading }) {
           <h1>{` Welcome ${profile.username}`}</h1>
           <UploadAvatar profile={profile} />
           <UploadVideos profile={profile} />
-          <MyCallOuts
-            user_id={profile.user_id}
-            callOuts={callOuts}
-            // challengers={challengers}
-            isLoading={isLoading}
-          />
+          <MyCallOuts user_id={profile.user_id} callOuts={callOuts} isLoading={isLoading} />
         </div>
       )}
     </div>

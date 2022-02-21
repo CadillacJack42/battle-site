@@ -8,13 +8,11 @@ import {
 } from '../services/fetch-utils';
 
 export default function Truth() {
-  // const [userData, setUserData] = useState({});
   const [profile, setProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [battles, setBattles] = useState([]);
 
   const [callOuts, setCallOuts] = useState([]);
-  // const [challengers, setChallengers] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,19 +38,6 @@ export default function Truth() {
     setLoading(false);
   }, []);
 
-  // useEffect(() => {
-  //   let newArray = [];
-  //   const getAndSetChallengers = async () => {
-  //     callOuts.map(async (callOut) => {
-  //       let response = await fetchProfileByUserId(callOut.challenger);
-  //       newArray = [...newArray, response];
-  //       await setChallengers([...newArray, challengers]);
-  //     });
-  //     setLoading(false);
-  //   };
-  //   getAndSetChallengers();
-  // }, [callOuts, challengers]);
-
   const Landing = lazy(() => import('../App'));
   const Home = lazy(() => import('./Home'));
   const Auth = lazy(() => import('./Auth'));
@@ -74,12 +59,7 @@ export default function Truth() {
                 path="/profile"
                 element={
                   profile ? (
-                    <Profile
-                      profile={profile}
-                      callOuts={callOuts}
-                      // challengers={challengers}
-                      isLoading={isLoading}
-                    />
+                    <Profile profile={profile} callOuts={callOuts} isLoading={isLoading} />
                   ) : (
                     <Navigate replace to={'/auth'} />
                   )
