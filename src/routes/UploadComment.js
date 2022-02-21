@@ -1,7 +1,5 @@
-import React from 'react';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from 'react';
 import { submitComment, fetchComments } from '../services/fetch-utils';
-
 export default function UploadComment({ comments, battle, setComments, userProfile }) {
   const [comment, setComment] = useState('');
 
