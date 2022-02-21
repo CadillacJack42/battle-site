@@ -1,7 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import {
-  fetchProfileByUserId,
   fetchAllBattles,
   fetchMyBattles,
   fetchAllUsers,

@@ -4,7 +4,6 @@ import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
 export default function Profile({ profile, callOuts, isLoading }) {
-  console.log(callOuts);
   return (
     <div className="profile-container">
       {!profile ? (
