@@ -1,8 +1,9 @@
 import React from 'react';
+import './Home.css';
 
 export default function Home({ allUsers }) {
   return (
-    <div>
+    <div className="home-container">
       {allUsers.map((user, i) => {
         return user.video_uploads.length !== 0 ? (
           <div onClick={() => location.replace(`./public-profile/${user.id}`)} key={user + i}>
