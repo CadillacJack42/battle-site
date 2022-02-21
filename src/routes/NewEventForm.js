@@ -21,8 +21,8 @@ export default function NewEventForm() {
       date,
       time,
     };
-    console.log(event);
     resetState();
+    alert(event);
   };
 
   return (

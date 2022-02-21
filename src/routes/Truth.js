@@ -69,7 +69,7 @@ export default function Truth() {
             <Routes>
               <Route element={<Landing userProfile={profile} />}>
                 <Route exact path="/" element={<Home allUsers={allUsers} />} />
-                <Route exact path="/auth" element={<Auth setUserData={setUserData} />} />
+                <Route exact path="/auth" element={<Auth />} />
                 <Route
                   exact
                   path="/profile"
@@ -77,7 +77,6 @@ export default function Truth() {
                     profile ? (
                       <Profile
                         profile={profile}
-                        setUserData={setUserData}
                         callOuts={callOuts}
                         challengers={challengers}
                         isLoading={isLoading}

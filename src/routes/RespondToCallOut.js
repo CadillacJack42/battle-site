@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { declineCallOut, respondToCallOut } from '../services/fetch-utils';
+import { respondToCallOut } from '../services/fetch-utils';
 
 export default function RespondToCallOut({ user_id, callOutId }) {
-  console.log(callOutId);
   const [response, setResponse] = useState('');
 
   const handleChange = (e) => {

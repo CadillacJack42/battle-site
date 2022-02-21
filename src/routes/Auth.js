@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { signUpUser, createProfile, signInUser } from '../services/fetch-utils';
 import SignUpForm from '../SignUpForm';
 import './Auth.css';
-export default function Auth({ setUserData }) {
+
+export default function Auth() {
   const [usernameSignUp, setUsernameSignUp] = useState('');
 
   const [emailSignUp, setEmailSignUp] = useState('');
@@ -33,8 +33,8 @@ export default function Auth({ setUserData }) {
     const user = await signUpUser(emailSignUp, passwordSignUp);
     await createProfile(usernameSignUp, emailSignUp);
     if (user) {
-      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
-      await setUserData(userInfo.currentSession.user);
+      // const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      // await setUserData(userInfo.currentSession.user);
       location.replace('/profile');
     }
   };
@@ -42,8 +42,8 @@ export default function Auth({ setUserData }) {
     e.preventDefault();
     const user = await signInUser(emailSignIN, passwordSignIn);
     if (user) {
-      const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
-      await setUserData(userInfo.currentSession.user);
+      // const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+      // await setUserData(userInfo.currentSession.user);
       location.replace('/profile');
     }
   };
