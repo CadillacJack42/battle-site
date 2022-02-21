@@ -3,7 +3,7 @@ import UploadVideos from './UploadVideos';
 import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
-export default function Profile({ profile, callOuts, challengers, isLoading }) {
+export default function Profile({ profile, callOuts, isLoading }) {
   return (
     <div className="profile-container">
       {!profile ? (
@@ -16,7 +16,7 @@ export default function Profile({ profile, callOuts, challengers, isLoading }) {
           <MyCallOuts
             user_id={profile.user_id}
             callOuts={callOuts}
-            challengers={challengers}
+            // challengers={challengers}
             isLoading={isLoading}
           />
         </div>
