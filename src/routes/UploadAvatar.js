@@ -13,7 +13,6 @@ export default function UploadAvatar({ profile, setUserData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await uploadProfileAvatar(userProfile.user_id, media);
-    setMedia('success');
     const response = await getUserState();
     await setUserData(response);
   };

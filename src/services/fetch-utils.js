@@ -80,7 +80,7 @@ export const getUserState = async (user) => {
 };
 
 export const fetchAllUsers = async () => {
-  const allUsers = await client.from('profiles').select();
+  const allUsers = await client.from('profiles').select().order('created_at', { ascending: true });
   if (allUsers) {
     return allUsers.data;
   } else return null;

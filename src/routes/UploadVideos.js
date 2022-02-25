@@ -11,7 +11,6 @@ export default function UploadVideos({ profile }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await uploadNewVideo(profile.user_id, media);
-    setMedia('success');
   };
   return (
     <div>

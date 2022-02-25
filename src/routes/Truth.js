@@ -7,6 +7,14 @@ import {
   getUserState,
 } from '../services/fetch-utils';
 
+import App from '../App';
+import Home from './Home';
+import Auth from './Auth';
+import Profile from './Profile';
+import BattleField from './BattleField';
+import PublicProfile from './PublicProfile';
+// import Events from '../Events';
+
 export default function Truth() {
   const [profile, setProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]);
@@ -35,23 +43,23 @@ export default function Truth() {
       userInfo ? await setCallOuts([...myCallOuts]) : null;
     };
     setState();
-    setLoading(false);
+    profile && allUsers && battles && callOuts && setLoading(false);
   }, []);
 
-  const Landing = lazy(() => import('../App'));
-  const Home = lazy(() => import('./Home'));
-  const Auth = lazy(() => import('./Auth'));
-  const Profile = lazy(() => import('./Profile'));
-  const BattleField = lazy(() => import('./BattleField'));
-  const PublicProfile = lazy(() => import('./PublicProfile'));
-  const Events = lazy(() => import('./Events'));
+  // const Landing = lazy(() => import('../App'));
+  // const Home = lazy(() => import('./Home'));
+  // const Auth = lazy(() => import('./Auth'));
+  // const Profile = lazy(() => import('./Profile'));
+  // const BattleField = lazy(() => import('./BattleField'));
+  // const PublicProfile = lazy(() => import('./PublicProfile'));
+  // const Events = lazy(() => import('./Events'));
 
   return (
     <div>
-      <Suspense fallback={<div>...Loading</div>}>
+      {!isLoading ? (
         <BrowserRouter>
           <Routes>
-            <Route element={<Landing userProfile={profile} />}>
+            <Route element={<App userProfile={profile} />}>
               <Route exact path="/" element={<Home allUsers={allUsers} />} />
               <Route exact path="/auth" element={<Auth />} />
               <Route
@@ -59,7 +67,7 @@ export default function Truth() {
                 path="/profile"
                 element={
                   profile ? (
-                    <Profile profile={profile} callOuts={callOuts} isLoading={isLoading} />
+                    <Profile profile={profile} callOuts={callOuts} />
                   ) : (
                     <Navigate replace to={'/auth'} />
                   )
@@ -75,15 +83,12 @@ export default function Truth() {
                 path={`/public-profile/:id`}
                 element={<PublicProfile currentUser={profile} />}
               />
-              <Route exact path="/events" element={<Events />} />
             </Route>
           </Routes>
         </BrowserRouter>
-      </Suspense>
+      ) : (
+        <div>One Moment While We Load Data</div>
+      )}
     </div>
-    // {!isLoading ? (
-    // ) : (
-    //   <h1>Just a Moment While We Load Up Your Data</h1>
-    // )}
   );
 }

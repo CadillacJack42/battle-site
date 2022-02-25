@@ -13,7 +13,7 @@ export default function NewEventForm() {
     setEventName('Historic Battle');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const event = {
       name: eventName,
@@ -21,8 +21,17 @@ export default function NewEventForm() {
       date,
       time,
     };
+    const netlifyURL = `/.netlify/functions/mapbox`;
+    const response = await fetch(`${netlifyURL}?location=${event.address}`);
+    // const mapboxURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${event.address}?access_token=${process.env.REACT_APP_MAPBOX_API}`;
+    // const response = await fetch(mapboxURL);
+
+    console.log(response);
+    // const json = await response.json();
+    // console.log(json);
+
     resetState();
-    alert(event);
+    // alert(event);
   };
 
   return (
