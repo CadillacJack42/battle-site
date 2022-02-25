@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import {
   fetchAllBattles,
@@ -6,6 +6,7 @@ import {
   fetchAllUsers,
   getUserState,
 } from '../services/fetch-utils';
+import { stars } from '../ratingDisplay';
 
 import App from '../App';
 import Home from './Home';
@@ -25,7 +26,7 @@ export default function Truth() {
 
   useEffect(() => {
     const setState = async () => {
-      await setLoading(true);
+      setLoading(true);
 
       let profile;
       const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
@@ -45,14 +46,6 @@ export default function Truth() {
     setState();
     profile && allUsers && battles && callOuts && setLoading(false);
   }, []);
-
-  // const Landing = lazy(() => import('../App'));
-  // const Home = lazy(() => import('./Home'));
-  // const Auth = lazy(() => import('./Auth'));
-  // const Profile = lazy(() => import('./Profile'));
-  // const BattleField = lazy(() => import('./BattleField'));
-  // const PublicProfile = lazy(() => import('./PublicProfile'));
-  // const Events = lazy(() => import('./Events'));
 
   return (
     <div>
@@ -76,7 +69,7 @@ export default function Truth() {
               <Route
                 exact
                 path="/battles"
-                element={<BattleField battles={battles} userProfile={profile} />}
+                element={<BattleField battles={battles} userProfile={profile} stars={stars} />}
               />
               <Route
                 exact

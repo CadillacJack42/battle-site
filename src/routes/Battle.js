@@ -2,7 +2,7 @@ import React from 'react';
 import Comments from './Comments';
 import './Battle.css';
 
-export default function Battle({ battle, userProfile }) {
+export default function Battle({ battle, userProfile, stars }) {
   return (
     <div className="battle-container">
       <div>
@@ -12,6 +12,8 @@ export default function Battle({ battle, userProfile }) {
             <video width="300" height="200" controls>
               <source src={battle.call_out} type="video/mp4" />
             </video>
+            <br></br>
+            <span>{stars(battle.challenger_rating)}</span>
           </span>
 
           <h1>VS.</h1>
@@ -21,6 +23,8 @@ export default function Battle({ battle, userProfile }) {
               <video width="300" height="200" controls>
                 <source src={battle.response} type="video/mp4" />
               </video>
+              <br></br>
+              <span>{stars(battle.opponent_rating)}</span>
             </span>
           ) : (
             <span>
