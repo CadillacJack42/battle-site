@@ -6,7 +6,7 @@ import {
   fetchAllUsers,
   getUserState,
 } from '../services/fetch-utils';
-import { stars } from '../ratingDisplay';
+import RatingDisplay from '../RatingDisplay';
 
 import App from '../App';
 import Home from './Home';
@@ -69,7 +69,9 @@ export default function Truth() {
               <Route
                 exact
                 path="/battles"
-                element={<BattleField battles={battles} userProfile={profile} stars={stars} />}
+                element={
+                  <BattleField battles={battles} userProfile={profile} stars={RatingDisplay} />
+                }
               />
               <Route
                 exact
