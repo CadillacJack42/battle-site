@@ -60,7 +60,7 @@ export default function Truth() {
                 path="/profile"
                 element={
                   profile ? (
-                    <Profile profile={profile} callOuts={callOuts} />
+                    <Profile profile={profile} callOuts={callOuts} setProfile={setProfile} />
                   ) : (
                     <Navigate replace to={'/auth'} />
                   )
@@ -70,13 +70,18 @@ export default function Truth() {
                 exact
                 path="/battles"
                 element={
-                  <BattleField battles={battles} userProfile={profile} stars={RatingDisplay} />
+                  <BattleField
+                    battles={battles}
+                    userProfile={profile}
+                    stars={RatingDisplay}
+                    setBattles={setBattles}
+                  />
                 }
               />
               <Route
                 exact
                 path={`/public-profile/:id`}
-                element={<PublicProfile currentUser={profile} />}
+                element={<PublicProfile currentUser={profile} setBattles={setBattles} />}
               />
             </Route>
           </Routes>

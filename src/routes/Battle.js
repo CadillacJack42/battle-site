@@ -3,7 +3,7 @@ import Comments from './Comments';
 import './Battle.css';
 import RatingDisplay from '../RatingDisplay';
 
-export default function Battle({ battle, userProfile }) {
+export default function Battle({ battle, userProfile, setBattles }) {
   return (
     <div className="battle-container">
       <div>
@@ -14,8 +14,13 @@ export default function Battle({ battle, userProfile }) {
               <source src={battle.call_out} type="video/mp4" />
             </video>
             <br></br>
-            {/* {stars(battle.challenger_rating)} */}
-            <RatingDisplay rating={battle.challenger_rating} />
+            <RatingDisplay
+              profile={userProfile}
+              battleRating={battle.challenger_rating}
+              battleId={battle.id}
+              contender={'challenger'}
+              setBattles={setBattles}
+            />
           </span>
 
           <h1>VS.</h1>
@@ -26,8 +31,13 @@ export default function Battle({ battle, userProfile }) {
                 <source src={battle.response} type="video/mp4" />
               </video>
               <br></br>
-              {/* {stars(battle.opponent_rating)} */}
-              <RatingDisplay rating={battle.challenger_rating} />
+              <RatingDisplay
+                profile={userProfile}
+                battleRating={battle.challenger_rating}
+                battleId={battle.id}
+                contender={'opponent'}
+                setBattles={setBattles}
+              />
             </span>
           ) : (
             <span>

@@ -200,3 +200,16 @@ export const fetchComments = async (id) => {
 
   return checkError(response);
 };
+
+export const fetchRating = async (battle) => {
+  const response = await client.from('ratings').select().match({ battle });
+  return checkError(response);
+};
+
+export const updateRatings = async (id, updatedRating, contender) => {
+  const response = await client
+    .from('ratings')
+    .upsert({ [`${contender}_rating`]: updatedRating, battle: id }, { onConflict: 'battle' })
+    .match({ battle: id });
+  return checkError(response);
+};

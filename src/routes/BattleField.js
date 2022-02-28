@@ -1,7 +1,7 @@
 import Battle from './Battle';
 import './BattleField.css';
 
-export default function BattleField({ battles, userProfile, stars }) {
+export default function BattleField({ battles, userProfile, stars, setBattles }) {
   return (
     <div className="battle-field-container">
       <h1>BattleField !!!</h1>
@@ -12,6 +12,7 @@ export default function BattleField({ battles, userProfile, stars }) {
             battle={battle}
             userProfile={userProfile}
             stars={stars}
+            setBattles={setBattles}
           />
         );
       })}

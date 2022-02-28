@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { uploadNewVideo } from '../services/fetch-utils';
+import { uploadNewVideo, getUserState } from '../services/fetch-utils';
 
-export default function UploadVideos({ profile }) {
+export default function UploadVideos({ profile, setProfile }) {
   const [media, setMedia] = useState('');
 
   const handleMediaChange = (e) => {
@@ -11,6 +11,9 @@ export default function UploadVideos({ profile }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await uploadNewVideo(profile.user_id, media);
+    const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+    const updatedProfile = await getUserState(userInfo.currentSession.user.id);
+    setProfile(updatedProfile);
   };
   return (
     <div>
