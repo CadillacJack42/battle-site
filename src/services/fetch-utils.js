@@ -201,8 +201,26 @@ export const fetchComments = async (id) => {
   return checkError(response);
 };
 
-export const fetchRating = async (battle) => {
-  const response = await client.from('ratings').select().match({ battle });
+export const fetchRating = async (battle, contender, username) => {
+  let response = await client
+    .from('ratings')
+    .select(`${contender}_rating`)
+    .match({ battle })
+    .single();
+
+  (await response.data) === null &&
+    (response.data = { [`${contender}_rating`]: { [`${username}`]: 0 } });
+  console.log(response);
+
+  return response.data;
+};
+
+export const fetchExistingRating = async (battle, participant) => {
+  const response = await client
+    .from('ratings')
+    .select(`${participant}_rating`)
+    .match({ battle })
+    .single();
   return checkError(response);
 };
 
