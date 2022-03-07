@@ -210,7 +210,6 @@ export const fetchRating = async (battle, contender, username) => {
 
   (await response.data) === null &&
     (response.data = { [`${contender}_rating`]: { [`${username}`]: 0 } });
-  console.log(response);
 
   return response.data;
 };
@@ -225,9 +224,11 @@ export const fetchExistingRating = async (battle, participant) => {
 };
 
 export const updateRatings = async (id, updatedRating, contender) => {
+  console.log(updatedRating);
   const response = await client
     .from('ratings')
     .upsert({ [`${contender}_rating`]: updatedRating, battle: id }, { onConflict: 'battle' })
     .match({ battle: id });
+  console.log(response);
   return checkError(response);
 };

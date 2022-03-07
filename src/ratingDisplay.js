@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
-import { updateRatings, fetchAllBattles, fetchRating } from './services/fetch-utils';
+import { updateRatings, fetchRating } from './services/fetch-utils';
 
-export default function RatingDisplay({ profile, battleId, contender, setBattles }) {
+export default function RatingDisplay({ profile, battleId, contender }) {
   const username = profile.username;
 
   const [userRating, setUserRating] = useState(0); // initial rating value
@@ -12,27 +12,31 @@ export default function RatingDisplay({ profile, battleId, contender, setBattles
   useEffect(() => {
     const getCurrRating = async () => {
       const rating = await fetchRating(battleId, contender, profile.username);
-      console.log(rating);
+      console.log(rating[`${contender}_rating`][username]);
+      rating[`${contender}_rating`][username] &&
+        setUserRating(rating[`${contender}_rating`][username]);
       setCurrentRatings(rating);
     };
     getCurrRating();
-  }, [battleId, contender, profile.username]);
+  }, []);
 
   useEffect(() => {
     const newRating = { ...currentRatings[`${contender}_rating`] };
-    newRating[username] = userRating;
-    console.log(newRating[username]);
+    userRating !== 0 && (newRating[username] = userRating);
     setUpdatedRatings(newRating);
-  }, [currentRatings, contender, userRating]);
+  }, [currentRatings, contender, userRating, username]);
 
   useEffect(() => {
-    console.log(updatedRatings);
-    userRating !== 0 && updateRatings(battleId, updatedRatings, contender);
-  }, [battleId, contender, userRating, updatedRatings]);
+    // console.log(updatedRatings);
+    const updateAndRefresh = async () => {
+      const response = await updateRatings(battleId, updatedRatings, contender);
+      console.log(response);
+    };
+    userRating !== 0 && updateAndRefresh();
+  }, [updatedRatings]);
 
   const handleUserRating = async (e) => {
-    console.log(e);
-    setUserRating(e);
+    await setUserRating(e);
   };
   return (
     <div className="Rating">
