@@ -31,13 +31,6 @@ export default function Nav(username) {
           Battle Field
         </Link>{' '}
         |{' '}
-        <Link className="nav-link" to="/public-profile/:id">
-          Public Profile
-        </Link>{' '}
-        |{' '}
-        <Link className="nav-link" to="/events">
-          Live Events
-        </Link>{' '}
         {username.Data ? (
           <button className="logout nav-link" onClick={logout}>
             Logout

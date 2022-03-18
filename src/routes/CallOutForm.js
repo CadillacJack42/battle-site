@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { uploadCallOut } from '../services/fetch-utils';
+import { uploadCallOut, fetchAllBattles } from '../services/fetch-utils';
 
-export default function CallOutForm({ opponent, currentUser }) {
+export default function CallOutForm({ opponent, currentUser, setBattles }) {
   const [callOut, setCallOut] = useState('');
 
   const handleChange = (e) => {
     setCallOut(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     uploadCallOut(opponent, callOut, currentUser);
+    const battleList = await fetchAllBattles();
+    await setBattles(battleList);
   };
   return (
     <div>

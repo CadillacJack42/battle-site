@@ -3,19 +3,15 @@ import UploadVideos from './UploadVideos';
 import MyCallOuts from './MyCallOuts';
 import './Profile.css';
 
-export default function Profile({ profile, callOuts, isLoading }) {
+export default function Profile({ profile, callOuts, setProfile }) {
   return (
     <div className="profile-container">
-      {!profile ? (
-        <h1>Profile Loading</h1>
-      ) : (
-        <div>
-          <h1>{` Welcome ${profile.username}`}</h1>
-          <UploadAvatar profile={profile} />
-          <UploadVideos profile={profile} />
-          <MyCallOuts user_id={profile.user_id} callOuts={callOuts} isLoading={isLoading} />
-        </div>
-      )}
+      <div>
+        <h1>{` Welcome ${profile.username}`}</h1>
+        <UploadAvatar profile={profile} setProfile={setProfile} />
+        <UploadVideos profile={profile} setProfile={setProfile} />
+        <MyCallOuts user_id={profile.user_id} callOuts={callOuts} />
+      </div>
     </div>
   );
 }

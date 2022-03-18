@@ -80,7 +80,7 @@ export const getUserState = async (user) => {
 };
 
 export const fetchAllUsers = async () => {
-  const allUsers = await client.from('profiles').select();
+  const allUsers = await client.from('profiles').select().order('created_at', { ascending: true });
   if (allUsers) {
     return allUsers.data;
   } else return null;
@@ -198,5 +198,37 @@ export const submitComment = async (battle, newComment) => {
 export const fetchComments = async (id) => {
   const response = await client.from('comments').select().match({ battle: id });
 
+  return checkError(response);
+};
+
+export const fetchRating = async (battle, contender, username) => {
+  let response = await client
+    .from('ratings')
+    .select(`${contender}_rating`)
+    .match({ battle })
+    .single();
+
+  (await response.data) === null &&
+    (response.data = { [`${contender}_rating`]: { [`${username}`]: 0 } });
+
+  return response.data;
+};
+
+export const fetchExistingRating = async (battle, participant) => {
+  const response = await client
+    .from('ratings')
+    .select(`${participant}_rating`)
+    .match({ battle })
+    .single();
+  return checkError(response);
+};
+
+export const updateRatings = async (id, updatedRating, contender) => {
+  console.log(updatedRating);
+  const response = await client
+    .from('ratings')
+    .upsert({ [`${contender}_rating`]: updatedRating, battle: id }, { onConflict: 'battle' })
+    .match({ battle: id });
+  console.log(response);
   return checkError(response);
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getUserState, uploadProfileAvatar } from '../services/fetch-utils';
 
-export default function UploadAvatar({ profile, setUserData }) {
+export default function UploadAvatar({ profile, setProfile }) {
   const userProfile = profile;
 
   const [media, setMedia] = useState('');
@@ -13,9 +13,10 @@ export default function UploadAvatar({ profile, setUserData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await uploadProfileAvatar(userProfile.user_id, media);
-    setMedia('success');
-    const response = await getUserState();
-    await setUserData(response);
+    // const response = await getUserState();
+    const userInfo = JSON.parse(localStorage.getItem('supabase.auth.token'));
+    const updatedProfile = await getUserState(userInfo.currentSession.user.id);
+    await setProfile(updatedProfile);
   };
   return (
     <div>

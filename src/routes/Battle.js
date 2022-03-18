@@ -1,8 +1,9 @@
 import React from 'react';
 import Comments from './Comments';
 import './Battle.css';
+import RatingDisplay from '../RatingDisplay';
 
-export default function Battle({ battle, userProfile }) {
+export default function Battle({ battle, userProfile, setBattles }) {
   return (
     <div className="battle-container">
       <div>
@@ -12,6 +13,14 @@ export default function Battle({ battle, userProfile }) {
             <video width="300" height="200" controls>
               <source src={battle.call_out} type="video/mp4" />
             </video>
+            <br></br>
+            <RatingDisplay
+              profile={userProfile}
+              battleRating={battle.challenger_rating}
+              battleId={battle.id}
+              contender={'challenger'}
+              setBattles={setBattles}
+            />
           </span>
 
           <h1>VS.</h1>
@@ -21,6 +30,14 @@ export default function Battle({ battle, userProfile }) {
               <video width="300" height="200" controls>
                 <source src={battle.response} type="video/mp4" />
               </video>
+              <br></br>
+              <RatingDisplay
+                profile={userProfile}
+                battleRating={battle.challenger_rating}
+                battleId={battle.id}
+                contender={'opponent'}
+                setBattles={setBattles}
+              />
             </span>
           ) : (
             <span>
