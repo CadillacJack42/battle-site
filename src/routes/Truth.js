@@ -14,7 +14,7 @@ import Auth from './Auth';
 import Profile from './Profile';
 import BattleField from './BattleField';
 import PublicProfile from './PublicProfile';
-// import Events from '../Events';
+// import Events from './Events';
 
 export default function Truth() {
   const [profile, setProfile] = useState({});
